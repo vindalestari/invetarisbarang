@@ -276,7 +276,7 @@ $setting_aplikasi = $this->db->get('setting')->row();
         <b>Developed by<a href="https://DISARDA.com"> DISARDA KOTA CIMAHI</b></a>
       </div>
       <strong>Copyright &copy; <?= date('Y'); ?> <a href="https://DISARDA.com">DISARDA KOTA CIMAHI</a>.</strong> All rights
-      reserved. -->
+      reserved.
       <!-- copyright
      
       <noscript><i>Javascript required</i></noscript>
@@ -285,90 +285,90 @@ $setting_aplikasi = $this->db->get('setting')->row();
   </div>
   <!-- ./wrapper -->
 
-  <!-- sweetallert -->
-  <script src="<?= base_url('/assets/dist/js/'); ?>sweetalert2.all.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script>
-    $(document).ready(function() {
-      $('.sidebar-menu').tree()
-    })
-    $(function() {
-      $('.select2').select2();
-      $('#sidebar-form').on('submit', function(e) {
-        e.preventDefault();
-      });
-      $('.rupiah').mask('000.000.000.000', {
-        reverse: true
-      });
-      $('.sidebar-menu li.active').data('lte.pushmenu.active', true);
-      $('#search-input').on('keyup', function() {
-        var term = $('#search-input').val().trim();
-        if (term.length === 0) {
-          $('.sidebar-menu li').each(function() {
-            $(this).show(0);
-            $(this).removeClass('active');
-            if ($(this).data('lte.pushmenu.active')) {
-              $(this).addClass('active');
-            }
+      <!-- sweetallert -->
+      <script src="<?= base_url('/assets/dist/js/'); ?>sweetalert2.all.min.js"></script>
+      <!-- AdminLTE for demo purposes -->
+      <script>
+        $(document).ready(function() {
+          $('.sidebar-menu').tree()
+        })
+        $(function() {
+          $('.select2').select2();
+          $('#sidebar-form').on('submit', function(e) {
+            e.preventDefault();
           });
-          return;
-        }
-        $('.sidebar-menu li').each(function() {
-          if ($(this).text().toLowerCase().indexOf(term.toLowerCase()) === -1) {
-            $(this).hide(0);
-            $(this).removeClass('pushmenu-search-found', false);
-            if ($(this).is('.treeview')) {
-              $(this).removeClass('active');
+          $('.rupiah').mask('000.000.000.000', {
+            reverse: true
+          });
+          $('.sidebar-menu li.active').data('lte.pushmenu.active', true);
+          $('#search-input').on('keyup', function() {
+            var term = $('#search-input').val().trim();
+            if (term.length === 0) {
+              $('.sidebar-menu li').each(function() {
+                $(this).show(0);
+                $(this).removeClass('active');
+                if ($(this).data('lte.pushmenu.active')) {
+                  $(this).addClass('active');
+                }
+              });
+              return;
             }
-          } else {
-            $(this).show(0);
-            $(this).addClass('pushmenu-search-found');
-            if ($(this).is('.treeview')) {
-              $(this).addClass('active');
-            }
-            var parent = $(this).parents('li').first();
-            if (parent.is('.treeview')) {
-              parent.show(0);
-            }
-          }
-          if ($(this).is('.header')) {
-            $(this).show();
-          }
+            $('.sidebar-menu li').each(function() {
+              if ($(this).text().toLowerCase().indexOf(term.toLowerCase()) === -1) {
+                $(this).hide(0);
+                $(this).removeClass('pushmenu-search-found', false);
+                if ($(this).is('.treeview')) {
+                  $(this).removeClass('active');
+                }
+              } else {
+                $(this).show(0);
+                $(this).addClass('pushmenu-search-found');
+                if ($(this).is('.treeview')) {
+                  $(this).addClass('active');
+                }
+                var parent = $(this).parents('li').first();
+                if (parent.is('.treeview')) {
+                  parent.show(0);
+                }
+              }
+              if ($(this).is('.header')) {
+                $(this).show();
+              }
+            });
+
+            $('.sidebar-menu li.pushmenu-search-found.treeview').each(function() {
+              $(this).find('.pushmenu-search-found').show(0);
+            });
+          });
         });
 
-        $('.sidebar-menu li.pushmenu-search-found.treeview').each(function() {
-          $(this).find('.pushmenu-search-found').show(0);
+        // To make Pace works on Ajax calls
+        $(document).ajaxStart(function() {
+          Pace.restart()
         });
-      });
-    });
-
-    // To make Pace works on Ajax calls
-    $(document).ajaxStart(function() {
-      Pace.restart()
-    });
 
 
-    // sweetallert
-    <?php
-    if (isset($this->session->success)) { ?>
-      alertify.set('notifier', 'position', 'center');
-      Swal.fire(
-        'Good Job!',
-        '<?= $this->session->success; ?>',
-        'success'
-      )
+        // sweetallert
+        <?php
+        if (isset($this->session->success)) { ?>
+          alertify.set('notifier', 'position', 'center');
+          Swal.fire(
+            'Good Job!',
+            '<?= $this->session->success; ?>',
+            'success'
+          )
 
-    <?php } elseif (isset($this->session->error)) { ?>
-      alertify.set('notifier', 'position', 'center');
-      Swal.fire(
-        'Oopss!',
-        '<?= $this->session->error; ?>',
-        'error'
-      )
-    <?php } ?>
+        <?php } elseif (isset($this->session->error)) { ?>
+          alertify.set('notifier', 'position', 'center');
+          Swal.fire(
+            'Oopss!',
+            '<?= $this->session->error; ?>',
+            'error'
+          )
+        <?php } ?>
 
-    //var notification = alertify.notify('sample', 'success', 5, function(){  console.log('dismissed'); });
-  </script>
+        //var notification = alertify.notify('sample', 'success', 5, function(){  console.log('dismissed'); });
+      </script>
 
 </body>
 
