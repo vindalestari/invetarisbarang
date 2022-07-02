@@ -19,10 +19,6 @@
             <input type="text" class="form-control" name="nama_barang" id="nama_barang" placeholder="Nama Barang" value="<?php echo $nama_barang; ?>" />
         </div>
 	    <div class="form-group">
-            <label for="varchar">Jumlah <?php echo form_error('jumlah') ?></label>
-            <input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah" value="<?php echo $jumlah; ?>" />
-        </div>
-	    <div class="form-group">
             <label for="varchar">Merk <?php echo form_error('merk') ?></label>
             <input type="text" class="form-control" name="merk" id="merk" placeholder="Merk" value="<?php echo $merk; ?>" />
         </div>

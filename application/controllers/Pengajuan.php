@@ -84,13 +84,14 @@ class Pengajuan extends CI_Controller
             'button' => 'Create',
             'action' => site_url('pengajuan/create_action'),
 	    'id' => set_value('id'),
-	    'nama_barang' => set_value('nama_barang'),
+	    'id_barang' => set_value('id_barang'),
 	    'jumlah_barang' => set_value('jumlah_barang'),
-	    'tanggal_pengajuan' => set_value('tanggal_pengajuan'),
-	    'status' => set_value('status'),
+	    'harga_barang' => set_value('harga_barang'),
+	    //'status' => set_value('status'),
 	);
         $data['title'] = 'Pengajuan';
         $data['subtitle'] = '';
+        $data['barang'] = $this->db->query("SELECT * from kelola_barang")->result();
         $data['crumb'] = [
             'Dashboard' => '',
         ];
@@ -107,10 +108,11 @@ class Pengajuan extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama_barang' => $this->input->post('nama_barang',TRUE),
+		'id_barang' => $this->input->post('id_barang',TRUE),
 		'jumlah_barang' => $this->input->post('jumlah_barang',TRUE),
-		'tanggal_pengajuan' => $this->input->post('tanggal_pengajuan',TRUE),
-		'status' => $this->input->post('status',TRUE),
+		'tanggal_pengajuan' => date('Y-m-d'),
+		'status' =>0,
+		'harga_barang' =>$this->input->post('harga_barang',TRUE),
 	    );
 
             $this->Pengajuan_model->insert($data);
@@ -193,10 +195,10 @@ class Pengajuan extends CI_Controller
    
     public function _rules() 
     {
-	$this->form_validation->set_rules('nama_barang', 'nama barang', 'trim|required');
+	$this->form_validation->set_rules('id_barang', 'id_barang', 'trim|required');
 	$this->form_validation->set_rules('jumlah_barang', 'jumlah barang', 'trim|required');
-	$this->form_validation->set_rules('tanggal_pengajuan', 'tanggal pengajuan', 'trim|required');
-	$this->form_validation->set_rules('status', 'status', 'trim|required');
+	// $this->form_validation->set_rules('tanggal_pengajuan', 'tanggal pengajuan', 'trim|required');
+	// $this->form_validation->set_rules('status', 'status', 'trim|required');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

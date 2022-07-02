@@ -84,7 +84,7 @@ class Kelola_barang extends CI_Controller
             'action' => site_url('kelola_barang/create_action'),
 	    'id' => set_value('id'),
 	    'nama_barang' => set_value('nama_barang'),
-	    'jumlah' => set_value('jumlah'),
+	    // 'jumlah' => set_value('jumlah'),
 	    'merk' => set_value('merk'),
 	);
         $data['title'] = 'Kelola Barang';
@@ -106,7 +106,7 @@ class Kelola_barang extends CI_Controller
         } else {
             $data = array(
 		'nama_barang' => $this->input->post('nama_barang',TRUE),
-		'jumlah' => $this->input->post('jumlah',TRUE),
+		'jumlah' =>0,
 		'merk' => $this->input->post('merk',TRUE),
 	    );
 
@@ -189,7 +189,7 @@ class Kelola_barang extends CI_Controller
     public function _rules() 
     {
 	$this->form_validation->set_rules('nama_barang', 'nama barang', 'trim|required');
-	$this->form_validation->set_rules('jumlah', 'jumlah', 'trim|required');
+	// $this->form_validation->set_rules('jumlah', 'jumlah', 'trim|required');
 	$this->form_validation->set_rules('merk', 'merk', 'trim|required');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');

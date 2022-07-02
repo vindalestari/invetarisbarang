@@ -61,17 +61,13 @@
 		<td  style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $pengajuan->id;?>" />&nbsp;</td>
                 
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $pengajuan->nama_barang ?></td>
+			<td><?php echo $pengajuan->id_barang ?></td>
 			<td><?php echo $pengajuan->jumlah_barang ?></td>
 			<td><?php echo $pengajuan->tanggal_pengajuan ?></td>
 			<td><?php echo $pengajuan->status ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('pengajuan/read/'.$pengajuan->id),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"'); 
-				echo ' '; 
-				echo anchor(site_url('pengajuan/update/'.$pengajuan->id),' <i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"'); 
-				echo ' '; 
-				echo anchor(site_url('pengajuan/delete/'.$pengajuan->id),' <i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirmdelete(\'pengajuan/delete/'.$pengajuan->id.'\')"  data-toggle="tooltip" title="Delete" '); 
 				?>
 			</td>
 		</tr>

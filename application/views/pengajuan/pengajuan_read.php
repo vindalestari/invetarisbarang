@@ -14,7 +14,7 @@
             <!-- /.box-header -->
             <div class="box-body">
         <table class="table">
-	    <tr><td>Nama Barang</td><td><?php echo $nama_barang; ?></td></tr>
+	    <tr><td>Nama Barang</td><td><?php echo $id_barang; ?></td></tr>
 	    <tr><td>Jumlah Barang</td><td><?php echo $jumlah_barang; ?></td></tr>
 	    <tr><td>Tanggal Pengajuan</td><td><?php echo $tanggal_pengajuan; ?></td></tr>
 	    <tr><td>Status</td><td><?php echo $status; ?></td></tr>
