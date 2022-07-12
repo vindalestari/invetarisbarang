@@ -9,9 +9,10 @@ class Kelola_barang_masuk extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('Kelola_barang_masuk_model');
+        $this->load->model('Kelola_barang_model');
         $this->load->library('form_validation');
     }
 
@@ -19,7 +20,7 @@ class Kelola_barang_masuk extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'kelola_barang_masuk?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'kelola_barang_masuk?q=' . urlencode($q);
@@ -53,44 +54,44 @@ class Kelola_barang_masuk extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Kelola_barang_masuk_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'id_user' => $row->id_user,
-		'id_supplier' => $row->id_supplier,
-		'harga_barang' => $row->harga_barang,
-		'jml_barang_masuk' => $row->jml_barang_masuk,
-		'tgl_masuk' => $row->tgl_masuk,
-	    );
-        $data['title'] = 'Kelola Barang Masuk';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id' => $row->id,
+                'id_user' => $row->id_user,
+                'id_supplier' => $row->id_supplier,
+                'harga_barang' => $row->harga_barang,
+                'jml_barang_masuk' => $row->jml_barang_masuk,
+                'tgl_masuk' => $row->tgl_masuk,
+            );
+            $data['title'] = 'Kelola Barang Masuk';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kelola_barang_masuk/kelola_barang_masuk_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'kelola_barang_masuk/kelola_barang_masuk_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('kelola_barang_masuk'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('kelola_barang_masuk/create_action'),
-	    'id' => set_value('id'),
-	    'id_user' => set_value('id_user'),
-	    'id_supplier' => set_value('id_supplier'),
-	    'harga_barang' => set_value('harga_barang'),
-	    'jml_barang_masuk' => set_value('jml_barang_masuk'),
-	    'tgl_masuk' => set_value('tgl_masuk'),
-	);
+            'id' => set_value('id'),
+            'id_user' => set_value('id_user'),
+            'id_supplier' => set_value('id_supplier'),
+            'harga_barang' => set_value('harga_barang'),
+            'jml_barang_masuk' => set_value('jml_barang_masuk'),
+            'tgl_masuk' => set_value('tgl_masuk'),
+        );
         $data['title'] = 'Kelola Barang Masuk';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -100,8 +101,8 @@ class Kelola_barang_masuk extends CI_Controller
         $data['page'] = 'kelola_barang_masuk/kelola_barang_masuk_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -109,20 +110,20 @@ class Kelola_barang_masuk extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_user' => $this->input->post('id_user',TRUE),
-		'id_supplier' => $this->input->post('id_supplier',TRUE),
-		'harga_barang' => $this->input->post('harga_barang',TRUE),
-		'jml_barang_masuk' => $this->input->post('jml_barang_masuk',TRUE),
-		'tgl_masuk' => $this->input->post('tgl_masuk',TRUE),
-	    );
+                'id_user' => $this->input->post('id_user', TRUE),
+                'id_supplier' => $this->input->post('id_supplier', TRUE),
+                'harga_barang' => $this->input->post('harga_barang', TRUE),
+                'jml_barang_masuk' => $this->input->post('jml_barang_masuk', TRUE),
+                'tgl_masuk' => $this->input->post('tgl_masuk', TRUE),
+            );
 
             $this->Kelola_barang_masuk_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('kelola_barang_masuk'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Kelola_barang_masuk_model->get_by_id($id);
 
@@ -130,49 +131,54 @@ class Kelola_barang_masuk extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('kelola_barang_masuk/update_action'),
-		'id' => set_value('id', $row->id),
-		'id_user' => set_value('id_user', $row->id_user),
-		'id_supplier' => set_value('id_supplier', $row->id_supplier),
-		'harga_barang' => set_value('harga_barang', $row->harga_barang),
-		'jml_barang_masuk' => set_value('jml_barang_masuk', $row->jml_barang_masuk),
-		'tgl_masuk' => set_value('tgl_masuk', $row->tgl_masuk),
-	    );
+                'id' => set_value('id', $row->id),
+                'id_user' => set_value('id_user', $row->id_user),
+                'id_supplier' => set_value('id_supplier', $row->id_supplier),
+                'harga_barang' => set_value('harga_barang', $row->harga_barang),
+                'jml_barang_masuk' => set_value('jml_barang_masuk', $row->jml_barang_masuk),
+                'tgl_masuk' => set_value('tgl_masuk', $row->tgl_masuk),
+            );
             $data['title'] = 'Kelola Barang Masuk';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kelola_barang_masuk/kelola_barang_masuk_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'kelola_barang_masuk/kelola_barang_masuk_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('kelola_barang_masuk'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action($id)
     {
-        $this->_rules();
+        $data = array(
+            'status' => 1
+        );
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id', TRUE));
-        } else {
-            $data = array(
-		'id_user' => $this->input->post('id_user',TRUE),
-		'id_supplier' => $this->input->post('id_supplier',TRUE),
-		'harga_barang' => $this->input->post('harga_barang',TRUE),
-		'jml_barang_masuk' => $this->input->post('jml_barang_masuk',TRUE),
-		'tgl_masuk' => $this->input->post('tgl_masuk',TRUE),
-	    );
+        $this->Kelola_barang_masuk_model->update($id, $data);
 
-            $this->Kelola_barang_masuk_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('success', 'Update Record Success');
-            redirect(site_url('kelola_barang_masuk'));
-        }
+        $jumlah_barang_masuk = $this->db->query("SELECT jml_barang_masuk FROM kelola_barang_masuk WHERE id = $id")->row()->jml_barang_masuk;
+
+        $id_barang = $this->db->query("SELECT p.id_barang FROM kelola_barang_masuk kb join pengajuan p on (kb.id_pengajuan=p.id) WHERE kb.id = $id")->row()->id_barang;
+
+
+
+        $jumlah_barang_sebelumnya = $this->db->query("SELECT jumlah FROM kelola_barang WHERE id = $id_barang")->row()->jumlah;
+        $data_barang = array(
+            'jumlah' => $jumlah_barang_sebelumnya + $jumlah_barang_masuk
+        );
+
+        $this->Kelola_barang_model->update($id_barang, $data_barang);
+
+
+        $this->session->set_flashdata('success', 'Update Record Success');
+        redirect(site_url('kelola_barang_masuk'));
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Kelola_barang_masuk_model->get_by_id($id);
 
@@ -186,28 +192,28 @@ class Kelola_barang_masuk extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->Kelola_barang_masuk_model->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('id_user', 'id user', 'trim|required');
-	$this->form_validation->set_rules('id_supplier', 'id supplier', 'trim|required');
-	$this->form_validation->set_rules('harga_barang', 'harga barang', 'trim|required');
-	$this->form_validation->set_rules('jml_barang_masuk', 'jml barang masuk', 'trim|required');
-	$this->form_validation->set_rules('tgl_masuk', 'tgl masuk', 'trim|required');
+        $this->form_validation->set_rules('id_user', 'id user', 'trim|required');
+        $this->form_validation->set_rules('id_supplier', 'id supplier', 'trim|required');
+        $this->form_validation->set_rules('harga_barang', 'harga barang', 'trim|required');
+        $this->form_validation->set_rules('jml_barang_masuk', 'jml barang masuk', 'trim|required');
+        $this->form_validation->set_rules('tgl_masuk', 'tgl masuk', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Kelola_barang_masuk.php */

@@ -9,7 +9,7 @@ class Pengajuan extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('Pengajuan_model');
         $this->load->model('Kelola_barang_masuk_model');
@@ -20,7 +20,7 @@ class Pengajuan extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'pengajuan?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'pengajuan?q=' . urlencode($q);
@@ -54,43 +54,43 @@ class Pengajuan extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Pengajuan_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'nama_barang' => $row->nama_barang,
-		'jumlah_barang' => $row->jumlah_barang,
-		'tanggal_pengajuan' => $row->tanggal_pengajuan,
-		'status' => $row->status,
-	    );
-        $data['title'] = 'Pengajuan';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id' => $row->id,
+                'nama_barang' => $row->nama_barang,
+                'jumlah_barang' => $row->jumlah_barang,
+                'tanggal_pengajuan' => $row->tanggal_pengajuan,
+                'status' => $row->status,
+            );
+            $data['title'] = 'Pengajuan';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'pengajuan/pengajuan_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'pengajuan/pengajuan_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('pengajuan'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('pengajuan/create_action'),
-	    'id' => set_value('id'),
-	    'id_barang' => set_value('id_barang'),
-	    'jumlah_barang' => set_value('jumlah_barang'),
-	    'harga_barang' => set_value('harga_barang'),
-	    'id_supplier' => set_value('id_supplier'),
-	    //'status' => set_value('status'),
-	);
+            'id' => set_value('id'),
+            'id_barang' => set_value('id_barang'),
+            'jumlah_barang' => set_value('jumlah_barang'),
+            'harga_barang' => set_value('harga_barang'),
+            'id_supplier' => set_value('id_supplier'),
+            //'status' => set_value('status'),
+        );
         $data['title'] = 'Pengajuan';
         $data['subtitle'] = '';
         $data['barang'] = $this->db->query("SELECT * from kelola_barang")->result();
@@ -102,8 +102,8 @@ class Pengajuan extends CI_Controller
         $data['page'] = 'pengajuan/pengajuan_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -111,13 +111,13 @@ class Pengajuan extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_barang' => $this->input->post('id_barang',TRUE),
-        'id_supplier' => $this->input->post('id_supplier',TRUE),
-		'jumlah_barang' => $this->input->post('jumlah_barang',TRUE),
-		'tanggal_pengajuan' => date('Y-m-d'),
-		'status' =>0,
-		'harga_barang' =>$this->input->post('harga_barang',TRUE),
-	    );
+                'id_barang' => $this->input->post('id_barang', TRUE),
+                'id_supplier' => $this->input->post('id_supplier', TRUE),
+                'jumlah_barang' => $this->input->post('jumlah_barang', TRUE),
+                'tanggal_pengajuan' => date('Y-m-d'),
+                'status' => 0,
+                'harga_barang' => $this->input->post('harga_barang', TRUE),
+            );
 
             $this->Pengajuan_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
@@ -127,19 +127,20 @@ class Pengajuan extends CI_Controller
 
     public function setujui($id_pengajuan)
     {
-        if($this->Pengajuan_model->setujui($id_pengajuan)){
+        if ($this->Pengajuan_model->setujui($id_pengajuan)) {
             $pengajuan = $this->db->query("select * from pengajuan where id=$id_pengajuan")->row();
-            $data=array(
-                'id_user'=>$this->session->userdata('user_id'),
-                'id_supplier'=>$pengajuan->id_supplier,
-                'harga_barang'=>$pengajuan->jumlah_barang*$pengajuan->harga_barang,
-                'jml_barang_masuk'=>$pengajuan->jumlah_barang,
-                'tgl_masuk'=>date('Y-m-d')
+            $data = array(
+                'id_user' => $this->session->userdata('user_id'),
+                'id_pengajuan' => $pengajuan->id,
+                'id_supplier' => $pengajuan->id_supplier,
+                'harga_barang' => $pengajuan->jumlah_barang * $pengajuan->harga_barang,
+                'jml_barang_masuk' => $pengajuan->jumlah_barang,
+                'tgl_masuk' => date('Y-m-d')
             );
             $this->Kelola_barang_masuk_model->insert($data);
             $this->session->set_flashdata('success', 'data disetujui');
             redirect(site_url('pengajuan'));
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('pengajuan'));
         }
@@ -147,16 +148,16 @@ class Pengajuan extends CI_Controller
 
     public function tidak_disetujui($id_pengajuan)
     {
-        if($this->Pengajuan_model->tidak_disetujui($id_pengajuan)){
+        if ($this->Pengajuan_model->tidak_disetujui($id_pengajuan)) {
             $this->session->set_flashdata('success', 'data tidak disetujui');
             redirect(site_url('pengajuan'));
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('pengajuan'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Pengajuan_model->get_by_id($id);
 
@@ -164,27 +165,27 @@ class Pengajuan extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('pengajuan/update_action'),
-		'id' => set_value('id', $row->id),
-		'nama_barang' => set_value('nama_barang', $row->nama_barang),
-		'jumlah_barang' => set_value('jumlah_barang', $row->jumlah_barang),
-		'tanggal_pengajuan' => set_value('tanggal_pengajuan', $row->tanggal_pengajuan),
-		'status' => set_value('status', $row->status),
-	    );
+                'id' => set_value('id', $row->id),
+                'nama_barang' => set_value('nama_barang', $row->nama_barang),
+                'jumlah_barang' => set_value('jumlah_barang', $row->jumlah_barang),
+                'tanggal_pengajuan' => set_value('tanggal_pengajuan', $row->tanggal_pengajuan),
+                'status' => set_value('status', $row->status),
+            );
             $data['title'] = 'Pengajuan';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'pengajuan/pengajuan_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'pengajuan/pengajuan_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('pengajuan'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -192,19 +193,19 @@ class Pengajuan extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'nama_barang' => $this->input->post('nama_barang',TRUE),
-		'jumlah_barang' => $this->input->post('jumlah_barang',TRUE),
-		'tanggal_pengajuan' => $this->input->post('tanggal_pengajuan',TRUE),
-		'status' => $this->input->post('status',TRUE),
-	    );
+                'nama_barang' => $this->input->post('nama_barang', TRUE),
+                'jumlah_barang' => $this->input->post('jumlah_barang', TRUE),
+                'tanggal_pengajuan' => $this->input->post('tanggal_pengajuan', TRUE),
+                'status' => $this->input->post('status', TRUE),
+            );
 
             $this->Pengajuan_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('pengajuan'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Pengajuan_model->get_by_id($id);
 
@@ -218,27 +219,27 @@ class Pengajuan extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->Pengajuan_model->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('id_barang', 'id_barang', 'trim|required');
-	$this->form_validation->set_rules('jumlah_barang', 'jumlah barang', 'trim|required');
-	// $this->form_validation->set_rules('tanggal_pengajuan', 'tanggal pengajuan', 'trim|required');
-	// $this->form_validation->set_rules('status', 'status', 'trim|required');
+        $this->form_validation->set_rules('id_barang', 'id_barang', 'trim|required');
+        $this->form_validation->set_rules('jumlah_barang', 'jumlah barang', 'trim|required');
+        // $this->form_validation->set_rules('tanggal_pengajuan', 'tanggal pengajuan', 'trim|required');
+        // $this->form_validation->set_rules('status', 'status', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Pengajuan.php */

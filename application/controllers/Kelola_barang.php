@@ -9,9 +9,10 @@ class Kelola_barang extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('Kelola_barang_model');
+        $this->load->model('Kelola_barang_keluar_model');
         $this->load->library('form_validation');
     }
 
@@ -19,7 +20,7 @@ class Kelola_barang extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'kelola_barang?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'kelola_barang?q=' . urlencode($q);
@@ -53,40 +54,40 @@ class Kelola_barang extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Kelola_barang_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'nama_barang' => $row->nama_barang,
-		'jumlah' => $row->jumlah,
-		'merk' => $row->merk,
-	    );
-        $data['title'] = 'Kelola Barang';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id' => $row->id,
+                'nama_barang' => $row->nama_barang,
+                'jumlah' => $row->jumlah,
+                'merk' => $row->merk,
+            );
+            $data['title'] = 'Kelola Barang';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kelola_barang/kelola_barang_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'kelola_barang/kelola_barang_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('kelola_barang'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('kelola_barang/create_action'),
-	    'id' => set_value('id'),
-	    'nama_barang' => set_value('nama_barang'),
-	    // 'jumlah' => set_value('jumlah'),
-	    'merk' => set_value('merk'),
-	);
+            'id' => set_value('id'),
+            'nama_barang' => set_value('nama_barang'),
+            // 'jumlah' => set_value('jumlah'),
+            'merk' => set_value('merk'),
+        );
         $data['title'] = 'Kelola Barang';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -96,8 +97,8 @@ class Kelola_barang extends CI_Controller
         $data['page'] = 'kelola_barang/kelola_barang_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -105,18 +106,72 @@ class Kelola_barang extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama_barang' => $this->input->post('nama_barang',TRUE),
-		'jumlah' =>0,
-		'merk' => $this->input->post('merk',TRUE),
-	    );
+                'nama_barang' => $this->input->post('nama_barang', TRUE),
+                'jumlah' => 0,
+                'merk' => $this->input->post('merk', TRUE),
+            );
 
             $this->Kelola_barang_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('kelola_barang'));
         }
     }
-    
-    public function update($id) 
+    public function distribusi($id)
+    {
+        $row = $this->Kelola_barang_model->get_by_id($id);
+
+        $data = array(
+            'button' => 'Distribusi',
+            'action' => site_url('kelola_barang/distribusi_action'),
+            'id' => $row->id,
+            'nama_barang' => $row->nama_barang,
+            'jumlah' => $row->jumlah,
+            'merk' => $row->merk,
+
+            // 'nama_barang' => set_value('nama_barang'),
+            // 'jumlah' => set_value('jumlah'),
+            // 'merk' => set_value('merk'),
+        );
+        $data['title'] = 'Kelola Barang';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Dashboard' => '',
+        ];
+
+        $data['page'] = 'kelola_barang/distribusi_form';
+        $this->load->view('template/backend', $data);
+    }
+
+    public function distribusi_action()
+    {
+
+
+        $data = array(
+            'id_user' => $this->session->userdata('user_id'),
+            'id_barang' => $this->input->post('id', TRUE),
+            'jml_barang_keluar' => $this->input->post('jml_barang_keluar', TRUE),
+            'tgl_keluar' => date('Y-m-d'),
+            'tujuan' => $this->input->post('tujuan', TRUE),
+        );
+
+        // insert ke kelola_barang_keluar
+        $this->db->insert('kelola_barang_keluar', $data);
+
+        // get jumlah dari kelola barang
+        $jml_barang = $this->db->get_where('kelola_barang', ['id' => $this->input->post('id', TRUE)])->row()->jumlah;
+        $data_barang = array(
+            'jumlah' => $jml_barang - $this->input->post('jml_barang_keluar', TRUE),
+        );
+
+        // update jumlah barang di kelola_barang    
+        $this->db->where('id', $this->input->post('id', TRUE));
+        $this->db->update('kelola_barang', $data_barang);
+
+        $this->session->set_flashdata('success', 'Create Record Success');
+        redirect(site_url('kelola_barang'));
+    }
+
+    public function update($id)
     {
         $row = $this->Kelola_barang_model->get_by_id($id);
 
@@ -124,26 +179,26 @@ class Kelola_barang extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('kelola_barang/update_action'),
-		'id' => set_value('id', $row->id),
-		'nama_barang' => set_value('nama_barang', $row->nama_barang),
-		'jumlah' => set_value('jumlah', $row->jumlah),
-		'merk' => set_value('merk', $row->merk),
-	    );
+                'id' => set_value('id', $row->id),
+                'nama_barang' => set_value('nama_barang', $row->nama_barang),
+                'jumlah' => set_value('jumlah', $row->jumlah),
+                'merk' => set_value('merk', $row->merk),
+            );
             $data['title'] = 'Kelola Barang';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'kelola_barang/kelola_barang_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'kelola_barang/kelola_barang_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('kelola_barang'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -151,18 +206,18 @@ class Kelola_barang extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'nama_barang' => $this->input->post('nama_barang',TRUE),
-		'jumlah' => $this->input->post('jumlah',TRUE),
-		'merk' => $this->input->post('merk',TRUE),
-	    );
+                'nama_barang' => $this->input->post('nama_barang', TRUE),
+                'jumlah' => $this->input->post('jumlah', TRUE),
+                'merk' => $this->input->post('merk', TRUE),
+            );
 
             $this->Kelola_barang_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('kelola_barang'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Kelola_barang_model->get_by_id($id);
 
@@ -176,26 +231,26 @@ class Kelola_barang extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->Kelola_barang_model->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('nama_barang', 'nama barang', 'trim|required');
-	// $this->form_validation->set_rules('jumlah', 'jumlah', 'trim|required');
-	$this->form_validation->set_rules('merk', 'merk', 'trim|required');
+        $this->form_validation->set_rules('nama_barang', 'nama barang', 'trim|required');
+        // $this->form_validation->set_rules('jumlah', 'jumlah', 'trim|required');
+        $this->form_validation->set_rules('merk', 'merk', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Kelola_barang.php */
