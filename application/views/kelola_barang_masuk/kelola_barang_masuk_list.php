@@ -62,8 +62,15 @@
 		<td  style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $kelola_barang_masuk->id;?>" />&nbsp;</td>
                 
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $kelola_barang_masuk->id_user ?></td>
-			<td><?php echo $kelola_barang_masuk->id_supplier ?></td>
+            <td><?php 
+            $first_name = $this->db->query("select first_name,last_name from users where id=$kelola_barang_masuk->id_user")->row()->first_name;
+            $last_name = $this->db->query("select first_name,last_name from users where id=$kelola_barang_masuk->id_user")->row()->last_name;
+            echo $first_name." ".$last_name;
+            ?></td>
+			<td><?php 
+            $nama_supplier = $this->db->query("select nama from kelola_supplier where id=$kelola_barang_masuk->id_supplier")->row()->nama;
+            echo $nama_supplier;
+            ?></td>
 			<td><?php echo $kelola_barang_masuk->harga_barang ?></td>
 			<td><?php echo $kelola_barang_masuk->jml_barang_masuk ?></td>
 			<td><?php echo $kelola_barang_masuk->tgl_masuk ?></td>

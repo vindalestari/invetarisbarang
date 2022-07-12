@@ -65,6 +65,20 @@ class Pengajuan_model extends CI_Model
         $this->db->update($this->table, $data);
     }
 
+    function setujui($id)
+    {
+        $this->db->where($this->id, $id);
+        $this->db->set('status',1);
+        return $this->db->update($this->table);
+    }
+
+    function tidak_disetujui($id)
+    {
+        $this->db->where($this->id, $id);
+        $this->db->set('status',2);
+        $this->db->update($this->table);
+    }
+
     // delete data
     function delete($id)
     {

@@ -15,7 +15,9 @@
       <div class="box-body">
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
+                <?php if($this->ion_auth->in_group(1)): ?>
                 <?php echo anchor(site_url('pengajuan/create'),'<i class="fa fa-plus"></i> Create', 'class="btn bg-purple"'); ?>
+                <?php endif; ?>
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
@@ -45,9 +47,9 @@
         <form method="post" action="<?= site_url('pengajuan/deletebulk');?>" id="formbulk">
         <table class="table table-bordered" style="margin-bottom: 10px" style="width:100%">
             <tr>
-                <th style="width: 10px;"><input type="checkbox" name="selectall" /></th>
                 <th>No</th>
 		<th>Nama Barang</th>
+        <th>Nama Supplier</th>
 		<th>Jumlah Barang</th>
 		<th>Tanggal Pengajuan</th>
 		<th>Status</th>
@@ -58,17 +60,28 @@
                 ?>
                 <tr>
                 
-		<td  style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $pengajuan->id;?>" />&nbsp;</td>
                 
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $pengajuan->id_barang ?></td>
+			<td><?php 
+            $nama_barang = $this->db->query("select nama_barang from kelola_barang where id=$pengajuan->id_barang")->row()->nama_barang;
+            echo $nama_barang;
+            ?></td>
+           <td><?php 
+            $nama_supplier = $this->db->query("select nama from kelola_supplier where id=$pengajuan->id_supplier")->row()->nama;
+            echo $nama_supplier;
+            ?></td>
 			<td><?php echo $pengajuan->jumlah_barang ?></td>
 			<td><?php echo $pengajuan->tanggal_pengajuan ?></td>
-			<td><?php echo $pengajuan->status ?></td>
+			<td><?php echo cek_status_pengajuan($pengajuan->status); ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('pengajuan/read/'.$pengajuan->id),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"'); 
 				?>
+                 <?php if($this->ion_auth->in_group(6) and $pengajuan->status ==0): ?>
+                    <a href="<?php echo site_url('Pengajuan/setujui/'.$pengajuan->id) ;?>" class="btn btn-xs btn-success">Setujui</a>
+                    <a href="<?php echo site_url('Pengajuan/tidak_disetujui/'.$pengajuan->id); ?>"  class="btn btn-xs btn-danger">Tidak disetujui</a>
+                 <?php endif; ?>
+
 			</td>
 		</tr>
                 <?php
@@ -77,7 +90,6 @@
         </table>
          <div class="row" style="margin-bottom: 10px;">
             <div class="col-md-12">
-                <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Hapus Data Terpilih</button> <a href="#" class="btn bg-yellow">Total Record : <?php echo $total_rows ?></a>
             </div>
         </div>
         </form>

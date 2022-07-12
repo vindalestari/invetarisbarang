@@ -1,6 +1,18 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+function cek_status_pengajuan($status)
+{
+  switch($status){
+    case '0': return 'Diproses';
+    break;
+    case '1': return 'Disetujui';
+    break;
+    case '2': return 'Tidak Disetujui';
+    break;
+    default: return '-';
+    break;
+  }
+}
 // konversi ke rupiah dari decimal atau integer
 // Rp. 12.000.000
 if (!function_exists('rupiah')) {

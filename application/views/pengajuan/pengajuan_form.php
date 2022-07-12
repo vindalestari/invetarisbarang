@@ -31,6 +31,23 @@
                             ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="id_supplier">Suppier</label>
+                        <select class="form-control select2" required="true" name="id_supplier">
+                            <?php
+
+                            foreach ($supplier as $value) {
+                                echo "<option value='" . $value->id . "'";
+                                if (isset($id_supplier)) {
+                                    if ($id_supplier == $value->id) {
+                                        echo " selected";
+                                    }
+                                }
+                                echo ">" . $value->nama . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
 	    <div class="form-group">
             <label for="varchar">Jumlah Barang <?php echo form_error('jumlah_barang') ?></label>
             <input type="number" min="1" class="form-control" name="jumlah_barang" id="jumlah_barang" placeholder="Jumlah Barang" value="<?php echo $jumlah_barang; ?>" />

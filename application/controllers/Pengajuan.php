@@ -12,6 +12,7 @@ class Pengajuan extends CI_Controller
         $this->layout->auth(); 
         $this->layout->auth_privilege($c_url);
         $this->load->model('Pengajuan_model');
+        $this->load->model('Kelola_barang_masuk_model');
         $this->load->library('form_validation');
     }
 
@@ -87,11 +88,13 @@ class Pengajuan extends CI_Controller
 	    'id_barang' => set_value('id_barang'),
 	    'jumlah_barang' => set_value('jumlah_barang'),
 	    'harga_barang' => set_value('harga_barang'),
+	    'id_supplier' => set_value('id_supplier'),
 	    //'status' => set_value('status'),
 	);
         $data['title'] = 'Pengajuan';
         $data['subtitle'] = '';
         $data['barang'] = $this->db->query("SELECT * from kelola_barang")->result();
+        $data['supplier'] = $this->db->query("SELECT * from kelola_supplier")->result();
         $data['crumb'] = [
             'Dashboard' => '',
         ];
@@ -109,6 +112,7 @@ class Pengajuan extends CI_Controller
         } else {
             $data = array(
 		'id_barang' => $this->input->post('id_barang',TRUE),
+        'id_supplier' => $this->input->post('id_supplier',TRUE),
 		'jumlah_barang' => $this->input->post('jumlah_barang',TRUE),
 		'tanggal_pengajuan' => date('Y-m-d'),
 		'status' =>0,
@@ -117,6 +121,37 @@ class Pengajuan extends CI_Controller
 
             $this->Pengajuan_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
+            redirect(site_url('pengajuan'));
+        }
+    }
+
+    public function setujui($id_pengajuan)
+    {
+        if($this->Pengajuan_model->setujui($id_pengajuan)){
+            $pengajuan = $this->db->query("select * from pengajuan where id=$id_pengajuan")->row();
+            $data=array(
+                'id_user'=>$this->session->userdata('user_id'),
+                'id_supplier'=>$pengajuan->id_supplier,
+                'harga_barang'=>$pengajuan->jumlah_barang*$pengajuan->harga_barang,
+                'jml_barang_masuk'=>$pengajuan->jumlah_barang,
+                'tgl_masuk'=>date('Y-m-d')
+            );
+            $this->Kelola_barang_masuk_model->insert($data);
+            $this->session->set_flashdata('success', 'data disetujui');
+            redirect(site_url('pengajuan'));
+        }else{
+            $this->session->set_flashdata('error', 'Record Not Found');
+            redirect(site_url('pengajuan'));
+        }
+    }
+
+    public function tidak_disetujui($id_pengajuan)
+    {
+        if($this->Pengajuan_model->tidak_disetujui($id_pengajuan)){
+            $this->session->set_flashdata('success', 'data tidak disetujui');
+            redirect(site_url('pengajuan'));
+        }else{
+            $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('pengajuan'));
         }
     }

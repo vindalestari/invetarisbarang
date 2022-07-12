@@ -1,7 +1,7 @@
 <!-- Default box -->
 <div class="row">
   <h1><b>Selamat Datang</b></h1>
-  <h2>Sistem Inventaris Barang Dinas Arsip Daerah Kota Cimahi</h2>
+  <h2>Sistem Inventaris Barang Dinas Arsip Daerah Kota Cimahi | SIVENBA </h2>
 </div>
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
