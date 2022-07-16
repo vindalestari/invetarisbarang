@@ -51,6 +51,7 @@
                             <th>Nama Supplier</th>
                             <th>Harga Barang</th>
                             <th>Jumlah Barang</th>
+                            <th>Total Harga</th>
                             <th>Tanggal Pengajuan</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -71,6 +72,7 @@
                                     ?></td>
                                 <td><?php echo $pengajuan->harga_barang ?></td>
                                 <td><?php echo $pengajuan->jumlah_barang ?></td>
+                                <td><?php echo $pengajuan->total_harga ?></td>
                                 <td><?php echo $pengajuan->tanggal_pengajuan ?></td>
                                 <td><?php echo cek_status_pengajuan($pengajuan->status); ?></td>
                                 <td style="text-align:center" width="200px">

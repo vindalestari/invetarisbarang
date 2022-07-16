@@ -15,7 +15,7 @@
                 <table class="table">
                     <tr>
                         <td>Nama Barang</td>
-                        <td><?php echo $id_barang; ?></td>
+                        <td><?php echo $nama_barang; ?></td>
                     </tr>
                     <tr>
                         <td>Jumlah Barang</td>
@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <td>Status</td>
-                        <td><?php echo $status; ?></td>
+                        <td><?php echo status_barang($status); ?></td>
                     </tr>
                     <tr>
                         <td><a href="<?php echo site_url('pengajuan') ?>" class="btn bg-purple">Cancel</a></td>

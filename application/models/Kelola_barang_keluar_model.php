@@ -58,6 +58,23 @@ class Kelola_barang_keluar_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function laporan_barang_keluar_total($q = NULL, $dari, $sampai)
+    {
+        $this->db->from($this->table);
+        $this->db->where('tgl_keluar >=', $dari);
+        $this->db->where('tgl_keluar <=', $sampai);
+        return $this->db->count_all_results();
+    }
+
+    // get data with limit and search
+    function laporan_barang_keluar($limit, $start = 0, $q = NULL, $dari, $sampai)
+    {
+        $this->db->where('tgl_keluar >=', $dari);
+        $this->db->where('tgl_keluar <=', $sampai);
+        $this->db->limit($limit, $start);
+        return $this->db->get($this->table)->result();
+    }
+
     // insert data
     function insert($data)
     {

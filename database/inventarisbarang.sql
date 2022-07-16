@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2022 at 12:06 PM
+-- Generation Time: Jul 16, 2022 at 12:42 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -60,9 +60,6 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (1, 8),
 (1, 43),
 (1, 44),
-(1, 1),
-(3, 1),
-(5, 1),
 (1, 95),
 (5, 95),
 (1, 96),
@@ -85,9 +82,6 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (2, 4),
 (3, 4),
 (5, 4),
-(1, 3),
-(2, 3),
-(3, 3),
 (1, 42),
 (1, 110),
 (1, 113),
@@ -95,16 +89,24 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (1, 115),
 (1, 112),
 (1, 111),
-(1, 120),
-(6, 120),
 (1, 116),
 (1, 117),
 (1, 118),
-(1, 119),
 (1, 121),
 (6, 121),
 (1, 92),
-(6, 92);
+(6, 92),
+(1, 120),
+(6, 120),
+(1, 1),
+(6, 1),
+(1, 3),
+(6, 3),
+(1, 122),
+(6, 122),
+(1, 119),
+(1, 123),
+(6, 123);
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,8 @@ CREATE TABLE `kelola_barang` (
 --
 
 INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`) VALUES
-(7, 'Lemari Arsip Uno UST 1482', '2', 'UNO');
+(7, 'Lemari Arsip Uno UST 1482', '2', 'UNO'),
+(8, 'Kursi Kerja', '0', 'UNO');
 
 -- --------------------------------------------------------
 
@@ -163,15 +166,17 @@ CREATE TABLE `kelola_barang_masuk` (
   `jml_barang_masuk` varchar(20) NOT NULL,
   `tgl_masuk` date NOT NULL,
   `status` int(11) NOT NULL DEFAULT 0,
-  `id_pengajuan` int(11) NOT NULL
+  `id_pengajuan` int(11) NOT NULL,
+  `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kelola_barang_masuk`
 --
 
-INSERT INTO `kelola_barang_masuk` (`id`, `id_user`, `id_supplier`, `harga_barang`, `jml_barang_masuk`, `tgl_masuk`, `status`, `id_pengajuan`) VALUES
-(11, 10, 2, '4000000', '4', '2022-07-12', 1, 17);
+INSERT INTO `kelola_barang_masuk` (`id`, `id_user`, `id_supplier`, `harga_barang`, `jml_barang_masuk`, `tgl_masuk`, `status`, `id_pengajuan`, `total_harga`) VALUES
+(11, 10, 2, '4000000', '4', '2022-07-12', 1, 17, 0),
+(12, 10, 1, '1500000', '4', '2022-07-16', 0, 19, 6000000);
 
 -- --------------------------------------------------------
 
@@ -232,8 +237,10 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (117, 7, 2, 92, 'fas fa-cart-plus', 'Kelola Barang', 'kelola_barang', '#', 1),
 (118, 8, 2, 92, 'fas fa-cart-plus', 'Kelola Barang Masuk', 'kelola_barang_masuk', '#', 1),
 (119, 9, 2, 92, 'fas fa-cart-plus', 'Kelola Barang Keluar', 'kelola_barang_keluar', '#', 1),
-(120, 11, 2, 92, 'fas fa-chart-area', 'Laporan', '#', '#', 1),
-(121, 10, 2, 92, 'far fa-save', 'Pengajuan', 'pengajuan', '#', 1);
+(120, 11, 2, 92, 'fas fa-chart-area', 'Laporan', 'laporan', '#', 1),
+(121, 10, 2, 92, 'far fa-save', 'Pengajuan', 'pengajuan', '#', 1),
+(122, 1, 2, 120, 'fab fa-accusoft', 'laporan barang masuk', 'laporan/laporan_barang_masuk', '#', 1),
+(123, 1, 2, 120, 'fas fa-ad', 'laporan barang keluar', 'laporan/laporan_barang_keluar', '#', 1);
 
 -- --------------------------------------------------------
 
@@ -266,15 +273,16 @@ CREATE TABLE `pengajuan` (
   `tanggal_pengajuan` date NOT NULL,
   `status` int(11) NOT NULL,
   `harga_barang` varchar(50) NOT NULL,
-  `id_supplier` int(11) NOT NULL
+  `id_supplier` int(11) NOT NULL,
+  `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pengajuan`
 --
 
-INSERT INTO `pengajuan` (`id`, `id_barang`, `jumlah_barang`, `tanggal_pengajuan`, `status`, `harga_barang`, `id_supplier`) VALUES
-(17, 7, '4', '2022-07-12', 1, '1000000', 2);
+INSERT INTO `pengajuan` (`id`, `id_barang`, `jumlah_barang`, `tanggal_pengajuan`, `status`, `harga_barang`, `id_supplier`, `total_harga`) VALUES
+(19, 8, '4', '2022-07-16', 1, '1500000', 1, 6000000);
 
 -- --------------------------------------------------------
 
@@ -429,7 +437,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kelola_barang`
 --
 ALTER TABLE `kelola_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_keluar`
@@ -441,19 +449,19 @@ ALTER TABLE `kelola_barang_keluar`
 -- AUTO_INCREMENT for table `kelola_barang_masuk`
 --
 ALTER TABLE `kelola_barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `kelola_supplier`
 --
 ALTER TABLE `kelola_supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -465,7 +473,7 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `setting`

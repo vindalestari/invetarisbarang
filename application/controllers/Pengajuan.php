@@ -60,7 +60,7 @@ class Pengajuan extends CI_Controller
         if ($row) {
             $data = array(
                 'id' => $row->id,
-                'nama_barang' => $row->nama_barang,
+                'nama_barang' => nama_barang($row->id_barang),
                 'jumlah_barang' => $row->jumlah_barang,
                 'tanggal_pengajuan' => $row->tanggal_pengajuan,
                 'status' => $row->status,
@@ -88,6 +88,7 @@ class Pengajuan extends CI_Controller
             'id_barang' => set_value('id_barang'),
             'jumlah_barang' => set_value('jumlah_barang'),
             'harga_barang' => set_value('harga_barang'),
+            'total_harga' => set_value('total_harga'),
             'id_supplier' => set_value('id_supplier'),
             //'status' => set_value('status'),
         );
@@ -117,6 +118,7 @@ class Pengajuan extends CI_Controller
                 'tanggal_pengajuan' => date('Y-m-d'),
                 'status' => 0,
                 'harga_barang' => $this->input->post('harga_barang', TRUE),
+                'total_harga' => $this->input->post('harga_barang', TRUE) * $this->input->post('jumlah_barang', TRUE),
             );
 
             $this->Pengajuan_model->insert($data);
@@ -133,8 +135,9 @@ class Pengajuan extends CI_Controller
                 'id_user' => $this->session->userdata('user_id'),
                 'id_pengajuan' => $pengajuan->id,
                 'id_supplier' => $pengajuan->id_supplier,
-                'harga_barang' => $pengajuan->jumlah_barang * $pengajuan->harga_barang,
+                'harga_barang' => $pengajuan->harga_barang,
                 'jml_barang_masuk' => $pengajuan->jumlah_barang,
+                'total_harga' => $pengajuan->harga_barang * $pengajuan->jumlah_barang,
                 'tgl_masuk' => date('Y-m-d')
             );
             $this->Kelola_barang_masuk_model->insert($data);

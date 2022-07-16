@@ -43,7 +43,7 @@
                 <form method="post" action="<?= site_url('kelola_barang_masuk/deletebulk'); ?>" id="formbulk">
                     <table class="table table-bordered" style="margin-bottom: 10px" style="width:100%">
                         <tr>
-                            <th style="width: 10px;"><input type="checkbox" name="selectall" /></th>
+
 
                             <th>No</th>
                             <th>Nama Penyetuju</th>
@@ -51,6 +51,7 @@
                             <th>Nama Barang</th>
                             <th>Harga Barang</th>
                             <th>Jml Barang Masuk</th>
+                            <th>Total Harga</th>
                             <th>Tgl Masuk</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -59,7 +60,7 @@
                                 ?>
                             <tr>
 
-                                <td style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $kelola_barang_masuk->id; ?>" />&nbsp;</td>
+
 
                                 <td width="80px"><?php echo ++$start ?></td>
                                 <td><?php
@@ -77,6 +78,7 @@
                                     ?></td>
                                 <td><?php echo $kelola_barang_masuk->harga_barang ?></td>
                                 <td><?php echo $kelola_barang_masuk->jml_barang_masuk ?></td>
+                                <td><?php echo $kelola_barang_masuk->total_harga ?></td>
                                 <td><?php echo $kelola_barang_masuk->tgl_masuk ?></td>
                                 <td><?php
                                     if ($kelola_barang_masuk->status == 1) {
@@ -102,7 +104,7 @@
                     </table>
                     <div class="row" style="margin-bottom: 10px;">
                         <div class="col-md-12">
-                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Hapus Data Terpilih</button> <a href="#" class="btn bg-yellow">Total Record : <?php echo $total_rows ?></a>
+                            <a href="#" class="btn bg-yellow">Total Record : <?php echo $total_rows ?></a>
                         </div>
                     </div>
                 </form>

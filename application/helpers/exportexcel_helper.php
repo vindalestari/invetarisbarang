@@ -1,27 +1,48 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 //ekspor xls
-function xlsBOF() {
-echo pack("ssssss", 0x809, 0x8, 0x0, 0x10, 0x0, 0x0);
-return;
+function xlsBOF()
+{
+  echo pack("ssssss", 0x809, 0x8, 0x0, 0x10, 0x0, 0x0);
+  return;
 }
- 
-function xlsEOF() {
-echo pack("ss", 0x0A, 0x00);
-return;
+
+function xlsEOF()
+{
+  echo pack("ss", 0x0A, 0x00);
+  return;
 }
- 
-function xlsWriteNumber($Row, $Col, $Value) {
-echo pack("sssss", 0x203, 14, $Row, $Col, 0x0);
-echo pack("d", $Value);
-return;
+
+function xlsWriteNumber($Row, $Col, $Value)
+{
+  echo pack("sssss", 0x203, 14, $Row, $Col, 0x0);
+  echo pack("d", $Value);
+  return;
 }
- 
-function xlsWriteLabel($Row, $Col, $Value ) {
-$L = strlen($Value);
-echo pack("ssssss", 0x204, 8 + $L, $Row, $Col, 0x0, $L);
-echo $Value;
-return;
+
+function xlsWriteLabel($Row, $Col, $Value)
+{
+  $L = strlen($Value);
+  echo pack("ssssss", 0x204, 8 + $L, $Row, $Col, 0x0, $L);
+  echo $Value;
+  return;
+}
+
+function nama_barang($id_barang)
+{
+  $ci = &get_instance();
+  $ci->load->model('Kelola_barang_keluar_model');
+  $nama_barang = $ci->db->get_where('kelola_barang', ['id' => $id_barang])->row();
+  return $nama_barang->nama_barang;
+}
+
+function status_barang($status)
+{
+  if ($status == 1) {
+    return "Diterima";
+  } else {
+    return "Belum Diterima";
+  }
 }
 
 

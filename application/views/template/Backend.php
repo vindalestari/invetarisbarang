@@ -32,6 +32,10 @@ $setting_aplikasi = $this->db->get('setting')->row();
   <!-- Select2 -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/select2/dist/css/select2-spn.min.css">
 
+  <!-- CSS Datepicker -->
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/css/bootstrap-datetimepicker.min.css">
+
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/skin-custom.min.css">
@@ -68,7 +72,10 @@ $setting_aplikasi = $this->db->get('setting')->row();
   <!-- Select2 -->
   <script src="<?= base_url(); ?>assets/bower_components/bootstrap-select/js/bootstrap-select.js"></script>
   <script src="<?= base_url(); ?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
-
+  <!-- Datepicker -->
+  <script src="<?= base_url(); ?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="<?= base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="<?= base_url(); ?>assets/js/bootstrap-datetimepicker.id.js"></script>
   <!-- mask -->
   <script src="<?= base_url(); ?>assets/dist/js/jquery.mask.min.js"></script>
   <style type="text/css">
@@ -351,23 +358,34 @@ $setting_aplikasi = $this->db->get('setting')->row();
         // sweetallert
         <?php
         if (isset($this->session->success)) { ?>
-          alertify.set('notifier', 'position', 'center');
-          Swal.fire(
-            'Good Job!',
-            '<?= $this->session->success; ?>',
-            'success'
-          )
+          // alertify.set('notifier', 'position', 'center');
+          // Swal.fire(
+          //   'Good Job!',
+          //   '<?= $this->session->success; ?>',
+          //   'success'
+          // )
 
         <?php } elseif (isset($this->session->error)) { ?>
-          alertify.set('notifier', 'position', 'center');
-          Swal.fire(
-            'Oopss!',
-            '<?= $this->session->error; ?>',
-            'error'
-          )
+          // alertify.set('notifier', 'position', 'center');
+          // Swal.fire(
+          //   'Oopss!',
+          //   '<?= $this->session->error; ?>',
+          //   'error'
+          // )
         <?php } ?>
 
         //var notification = alertify.notify('sample', 'success', 5, function(){  console.log('dismissed'); });
+        $('.formdate').datepicker({
+          format: "yyyy-mm-dd",
+          autoclose: true,
+          weekStart: 1,
+          todayBtn: 1,
+          // autoclose: 1,
+          todayHighlight: 1,
+          startView: 0,
+          forceParse: 0,
+          showMeridian: 1
+        });
       </script>
 
 </body>

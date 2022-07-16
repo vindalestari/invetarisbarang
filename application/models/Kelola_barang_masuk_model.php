@@ -28,29 +28,47 @@ class Kelola_barang_masuk_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id', $q);
-	$this->db->or_like('id_user', $q);
-	$this->db->or_like('id_supplier', $q);
-	$this->db->or_like('harga_barang', $q);
-	$this->db->or_like('jml_barang_masuk', $q);
-	$this->db->or_like('tgl_masuk', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('id_user', $q);
+        $this->db->or_like('id_supplier', $q);
+        $this->db->or_like('harga_barang', $q);
+        $this->db->or_like('jml_barang_masuk', $q);
+        $this->db->or_like('tgl_masuk', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('id_user', $q);
-	$this->db->or_like('id_supplier', $q);
-	$this->db->or_like('harga_barang', $q);
-	$this->db->or_like('jml_barang_masuk', $q);
-	$this->db->or_like('tgl_masuk', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('id_user', $q);
+        $this->db->or_like('id_supplier', $q);
+        $this->db->or_like('harga_barang', $q);
+        $this->db->or_like('jml_barang_masuk', $q);
+        $this->db->or_like('tgl_masuk', $q);
+        $this->db->limit($limit, $start);
+        return $this->db->get($this->table)->result();
+    }
+    function laporan_barang_masuk_total($q = NULL, $dari, $sampai)
+    {
+        $this->db->from($this->table);
+        $this->db->where('tgl_masuk >=', $dari);
+        $this->db->where('tgl_masuk <=', $sampai);
+        return $this->db->count_all_results();
+    }
+
+    // get data with limit and search
+    function laporan_barang_masuk($limit, $start = 0, $q = NULL, $dari, $sampai)
+    {
+        $this->db->where('tgl_masuk >=', $dari);
+        $this->db->where('tgl_masuk <=', $sampai);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -75,13 +93,13 @@ class Kelola_barang_masuk_model extends CI_Model
     }
 
     // delete bulkdata
-    function deletebulk(){
+    function deletebulk()
+    {
         $data = $this->input->post('msg_', TRUE);
-        $arr_id = explode(",", $data); 
+        $arr_id = explode(",", $data);
         $this->db->where_in($this->id, $arr_id);
         return $this->db->delete($this->table);
     }
-
 }
 
 /* End of file Kelola_barang_masuk_model.php */

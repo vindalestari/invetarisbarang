@@ -61,7 +61,7 @@ class Kelola_barang_keluar extends CI_Controller
                 'id' => $row->id,
                 'id_user' => $row->id_user,
                 'id_barang' => $row->id_barang,
-                'nama_barang' => $row->nama_barang,
+                'nama_barang' => nama_barang($row->id_barang),
                 'jml_barang_keluar' => $row->jml_barang_keluar,
                 'tgl_keluar' => $row->tgl_keluar,
                 'tujuan' => $row->tujuan,
