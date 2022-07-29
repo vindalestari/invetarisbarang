@@ -58,6 +58,19 @@ class Kelola_barang_keluar_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_limit_data_print_bk()
+    {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->like('id');
+        $this->db->or_like('id_user');
+        $this->db->or_like('id_barang');
+        // $this->db->or_like('nama_barang');
+        $this->db->or_like('jml_barang_keluar');
+        $this->db->or_like('tgl_keluar');
+        $this->db->or_like('tujuan');
+        return $this->db->get($this->table)->result();
+    }
+
     function laporan_barang_keluar_total($q = NULL, $dari, $sampai)
     {
         $this->db->from($this->table);

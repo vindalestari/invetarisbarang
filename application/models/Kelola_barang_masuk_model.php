@@ -55,6 +55,17 @@ class Kelola_barang_masuk_model extends CI_Model
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
+    function get_limit_data_print_bm()
+    {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->like('id');
+        $this->db->or_like('id_user');
+        $this->db->or_like('id_supplier');
+        $this->db->or_like('harga_barang');
+        $this->db->or_like('jml_barang_masuk');
+        $this->db->or_like('tgl_masuk');
+        return $this->db->get($this->table)->result();
+    }
     function laporan_barang_masuk_total($q = NULL, $dari, $sampai)
     {
         $this->db->from($this->table);

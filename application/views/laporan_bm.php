@@ -41,21 +41,26 @@
         </div>
         <div style="margin-bottom: 10px;margin-left:10px;margin-top:60px"><label for="filter">Filter Tanggal:</label></div>
         <div class="row" style="margin-bottom: 10px;margin-left:10px">
-          <form action="<?php echo base_url('laporan/laporan_barang_masuk'); ?>" class="form-inline" method="post">
-            <div class="col input-group">
-              <!-- <label><b>Filter :</b></label> -->
-              <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-calendar"></i></button></span>
-              <input type="text" class="form-control formdate" name="dari" id="DariTanggal" required="true" placeholder="Dari Tanggal">
-            </div>
-            <div class="col input-group">
-              <span class="input-group-addon" id="sizing-addon1">
-                <i class="fas fa-chevron-right"></i></span>
-              <input type="text" class="form-control formdate" name="sampai" id="SampaiTanggal" required="true" placeholder="Sampai Tanggal">
-            </div>
-            <div class="col input-group">
-              <button type="submit" class="btn btn-primary"> <i class="fas fa-check-circle"></i> Submit</button>
-            </div>
-          </form>
+          <div class="col-md-11">
+            <form action="<?php echo base_url('laporan/laporan_barang_masuk'); ?>" class="form-inline" method="post">
+              <div class="col input-group">
+                <!-- <label><b>Filter :</b></label> -->
+                <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-calendar"></i></button></span>
+                <input type="text" class="form-control formdate" name="dari" id="DariTanggal" required="true" placeholder="Dari Tanggal">
+              </div>
+              <div class="col input-group">
+                <span class="input-group-addon" id="sizing-addon1">
+                  <i class="fas fa-chevron-right"></i></span>
+                <input type="text" class="form-control formdate" name="sampai" id="SampaiTanggal" required="true" placeholder="Sampai Tanggal">
+              </div>
+              <div class="col input-group">
+                <button type="submit" class="btn btn-primary"> <i class="fas fa-check-circle"></i> Submit</button>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-1">
+            <a href="<?php echo base_url('laporan/laporan_barang_masuk_print'); ?>" class="btn btn-primary" target="_blank"> <i class="fas fa-print"></i> Print</a>
+          </div>
         </div>
         <form method="post" action="<?= site_url('barang_masuk/deletebulk'); ?>" id="formbulk">
           <div class="mailbox-messages">
@@ -67,6 +72,7 @@
                 </th>
                 <th>Nama Penyetuju</th>
                 <th>Supplier</th>
+                <th>Nama Barang</th>
                 <th>Harga Barang</th>
                 <th>Jumlah Barang</th>
                 <th>Total Harga</th>
@@ -96,6 +102,10 @@
                       $supplier = $this->db->query("select * from kelola_supplier where id=$barang_masuk->id_supplier")->row()->nama;
 
                       echo $supplier ?></td>
+                  <td><?php
+                      $query = $this->db->query("select kelola_barang.nama_barang as nama_barang from pengajuan join kelola_barang on pengajuan.id_barang=kelola_barang.id where pengajuan.id=$barang_masuk->id_pengajuan")->row()->nama_barang;
+                      echo $query;
+                      ?></td>
                   <td><strong><?php echo $barang_masuk->harga_barang ?></strong></td>
                   <td><?php echo $barang_masuk->jml_barang_masuk ?></td>
                   <td><?php echo $barang_masuk->total_harga ?></td>

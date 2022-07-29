@@ -41,21 +41,26 @@
         </div>
         <div style="margin-bottom: 10px;margin-left:10px;margin-top:60px"><label for="filter">Filter Tanggal:</label></div>
         <div class="row" style="margin-bottom: 10px;margin-left:10px">
-          <form action="<?php echo base_url('laporan/laporan_barang_keluar'); ?>" class="form-inline" method="post">
-            <div class="col input-group">
-              <!-- <label><b>Filter :</b></label> -->
-              <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-calendar"></i></button></span>
-              <input type="text" class="form-control formdate" name="dari" id="DariTanggal" required="true" placeholder="Dari Tanggal">
-            </div>
-            <div class="col input-group">
-              <span class="input-group-addon" id="sizing-addon1">
-                <i class="fas fa-chevron-right"></i></span>
-              <input type="text" class="form-control formdate" name="sampai" id="SampaiTanggal" required="true" placeholder="Sampai Tanggal">
-            </div>
-            <div class="col input-group">
-              <button type="submit" class="btn btn-primary"> <i class="fas fa-check-circle"></i> Submit</button>
-            </div>
-          </form>
+          <div class="col-md-11">
+            <form action="<?php echo base_url('laporan/laporan_barang_keluar'); ?>" class="form-inline" method="post">
+              <div class="col input-group">
+                <!-- <label><b>Filter :</b></label> -->
+                <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-calendar"></i></button></span>
+                <input type="text" class="form-control formdate" name="dari" id="DariTanggal" required="true" placeholder="Dari Tanggal">
+              </div>
+              <div class="col input-group">
+                <span class="input-group-addon" id="sizing-addon1">
+                  <i class="fas fa-chevron-right"></i></span>
+                <input type="text" class="form-control formdate" name="sampai" id="SampaiTanggal" required="true" placeholder="Sampai Tanggal">
+              </div>
+              <div class="col input-group">
+                <button type="submit" class="btn btn-primary"> <i class="fas fa-check-circle"></i> Submit</button>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-1">
+            <a href="<?php echo base_url('laporan/laporan_barang_keluar_print'); ?>" class="btn btn-primary" target="_blank"> <i class="fas fa-print"></i> Print</a>
+          </div>
         </div>
         <form method="post" action="<?= site_url('barang_keluar/deletebulk'); ?>" id="formbulk">
           <div class="mailbox-messages">

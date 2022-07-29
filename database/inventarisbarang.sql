@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2022 at 12:42 PM
+-- Generation Time: Jul 29, 2022 at 06:23 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -175,7 +175,6 @@ CREATE TABLE `kelola_barang_masuk` (
 --
 
 INSERT INTO `kelola_barang_masuk` (`id`, `id_user`, `id_supplier`, `harga_barang`, `jml_barang_masuk`, `tgl_masuk`, `status`, `id_pengajuan`, `total_harga`) VALUES
-(11, 10, 2, '4000000', '4', '2022-07-12', 1, 17, 0),
 (12, 10, 1, '1500000', '4', '2022-07-16', 0, 19, 6000000);
 
 -- --------------------------------------------------------
