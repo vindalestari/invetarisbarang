@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2022 at 06:23 AM
+-- Generation Time: Aug 09, 2022 at 10:43 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -104,9 +104,9 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (6, 3),
 (1, 122),
 (6, 122),
-(1, 119),
 (1, 123),
-(6, 123);
+(6, 123),
+(1, 119);
 
 -- --------------------------------------------------------
 
@@ -126,8 +126,10 @@ CREATE TABLE `kelola_barang` (
 --
 
 INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`) VALUES
-(7, 'Lemari Arsip Uno UST 1482', '2', 'UNO'),
-(8, 'Kursi Kerja', '0', 'UNO');
+(7, 'Lemari Arsip Uno UST 1482', '3', 'UNO'),
+(8, 'Kursi Kerja', '3', 'UNO'),
+(9, 'kulkas', '2', 'IKEA'),
+(10, 'kursi', '0', 'IKEA');
 
 -- --------------------------------------------------------
 
@@ -150,7 +152,11 @@ CREATE TABLE `kelola_barang_keluar` (
 
 INSERT INTO `kelola_barang_keluar` (`id`, `id_user`, `id_barang`, `jml_barang_keluar`, `tgl_keluar`, `tujuan`) VALUES
 (7, 1, 7, '1', '2022-07-12', 'R. Bendahara'),
-(8, 1, 7, '1', '2022-07-12', 'R. Sekretariat');
+(8, 1, 7, '1', '2022-07-12', 'R. Sekretariat'),
+(9, 1, 8, '1', '2022-08-05', 'R.Admin'),
+(10, 1, 8, '', '2022-08-05', ''),
+(11, 1, 9, '2', '2022-08-08', 'R.Admin'),
+(12, 1, 10, '2', '2022-08-08', 'r.sekre');
 
 -- --------------------------------------------------------
 
@@ -175,7 +181,10 @@ CREATE TABLE `kelola_barang_masuk` (
 --
 
 INSERT INTO `kelola_barang_masuk` (`id`, `id_user`, `id_supplier`, `harga_barang`, `jml_barang_masuk`, `tgl_masuk`, `status`, `id_pengajuan`, `total_harga`) VALUES
-(12, 10, 1, '1500000', '4', '2022-07-16', 0, 19, 6000000);
+(12, 10, 1, '1500000', '4', '2022-07-16', 1, 19, 6000000),
+(13, 10, 1, '100000', '1', '2022-08-05', 1, 20, 100000),
+(14, 10, 1, '100000', '4', '2022-08-08', 1, 21, 400000),
+(15, 10, 1, '100000', '2', '2022-08-08', 1, 22, 200000);
 
 -- --------------------------------------------------------
 
@@ -235,7 +244,7 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (116, 6, 2, 92, 'far fa-id-badge', 'Kelola Supplier', 'kelola_supplier', '#', 1),
 (117, 7, 2, 92, 'fas fa-cart-plus', 'Kelola Barang', 'kelola_barang', '#', 1),
 (118, 8, 2, 92, 'fas fa-cart-plus', 'Kelola Barang Masuk', 'kelola_barang_masuk', '#', 1),
-(119, 9, 2, 92, 'fas fa-cart-plus', 'Kelola Barang Keluar', 'kelola_barang_keluar', '#', 1),
+(119, 9, 2, 92, 'fas fa-cart-plus', 'Daftar Barang Keluar', 'kelola_barang_keluar', '#', 1),
 (120, 11, 2, 92, 'fas fa-chart-area', 'Laporan', 'laporan', '#', 1),
 (121, 10, 2, 92, 'far fa-save', 'Pengajuan', 'pengajuan', '#', 1),
 (122, 1, 2, 120, 'fab fa-accusoft', 'laporan barang masuk', 'laporan/laporan_barang_masuk', '#', 1),
@@ -281,7 +290,10 @@ CREATE TABLE `pengajuan` (
 --
 
 INSERT INTO `pengajuan` (`id`, `id_barang`, `jumlah_barang`, `tanggal_pengajuan`, `status`, `harga_barang`, `id_supplier`, `total_harga`) VALUES
-(19, 8, '4', '2022-07-16', 1, '1500000', 1, 6000000);
+(19, 8, '4', '2022-07-16', 1, '1500000', 1, 6000000),
+(20, 7, '1', '2022-08-05', 1, '100000', 1, 100000),
+(21, 9, '4', '2022-08-08', 1, '100000', 1, 400000),
+(22, 10, '2', '2022-08-08', 1, '100000', 1, 200000);
 
 -- --------------------------------------------------------
 
@@ -436,19 +448,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kelola_barang`
 --
 ALTER TABLE `kelola_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_keluar`
 --
 ALTER TABLE `kelola_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_masuk`
 --
 ALTER TABLE `kelola_barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `kelola_supplier`
@@ -472,7 +484,7 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `setting`
