@@ -109,6 +109,7 @@ class Kelola_barang extends CI_Controller
                 'nama_barang' => $this->input->post('nama_barang', TRUE),
                 'jumlah' => 0,
                 'merk' => $this->input->post('merk', TRUE),
+                'klasifikasi' => $this->input->post('klasifikasi', TRUE),
             );
 
             $this->Kelola_barang_model->insert($data);

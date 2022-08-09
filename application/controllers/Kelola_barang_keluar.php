@@ -43,10 +43,10 @@ class Kelola_barang_keluar extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['title'] = 'Kelola Barang Keluar';
+        $data['title'] = 'Daftar Barang Keluar';
         $data['subtitle'] = '';
         $data['crumb'] = [
-            'Kelola Barang Keluar' => '',
+            'Daftar Barang Keluar' => '',
         ];
 
         $data['page'] = 'kelola_barang_keluar/kelola_barang_keluar_list';

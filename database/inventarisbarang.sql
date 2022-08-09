@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2022 at 10:43 AM
+-- Generation Time: Aug 09, 2022 at 11:06 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -118,18 +118,20 @@ CREATE TABLE `kelola_barang` (
   `id` int(11) NOT NULL,
   `nama_barang` varchar(50) NOT NULL,
   `jumlah` varchar(50) NOT NULL,
-  `merk` varchar(50) NOT NULL
+  `merk` varchar(50) NOT NULL,
+  `klasifikasi` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kelola_barang`
 --
 
-INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`) VALUES
-(7, 'Lemari Arsip Uno UST 1482', '3', 'UNO'),
-(8, 'Kursi Kerja', '3', 'UNO'),
-(9, 'kulkas', '2', 'IKEA'),
-(10, 'kursi', '0', 'IKEA');
+INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`, `klasifikasi`) VALUES
+(7, 'Lemari Arsip Uno UST 1482', '3', 'UNO', ''),
+(8, 'Kursi Kerja', '3', 'UNO', ''),
+(9, 'kulkas', '1', 'IKEA', ''),
+(10, 'kursi', '0', 'IKEA', ''),
+(11, 'Lemari Skat', '0', 'UNO', 'Furniture');
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,8 @@ INSERT INTO `kelola_barang_keluar` (`id`, `id_user`, `id_barang`, `jml_barang_ke
 (9, 1, 8, '1', '2022-08-05', 'R.Admin'),
 (10, 1, 8, '', '2022-08-05', ''),
 (11, 1, 9, '2', '2022-08-08', 'R.Admin'),
-(12, 1, 10, '2', '2022-08-08', 'r.sekre');
+(12, 1, 10, '2', '2022-08-08', 'r.sekre'),
+(13, 1, 9, '1', '2022-08-09', 'R.Bendahara');
 
 -- --------------------------------------------------------
 
@@ -448,13 +451,13 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kelola_barang`
 --
 ALTER TABLE `kelola_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_keluar`
 --
 ALTER TABLE `kelola_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_masuk`

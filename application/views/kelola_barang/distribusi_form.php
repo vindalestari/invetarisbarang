@@ -19,7 +19,12 @@
                     </div>
                     <div class="form-group">
                         <label for="varchar">Tujuan
-                            <textarea type="text" class="form-control" name="tujuan" id="tujuan" placeholder="tujuan"></textarea>
+                            <select name="tujuan" class="form-control" id="">
+                                <option value="R.Kadis">R.Kadis</option>
+                                <option value="R.Sekretariat">R.Sekretariat</option>
+                                <option value="R.Bendahara">R.Bendahara</option>
+                                <option value="R.Perpustakaan">R.Perpustakaan</option>
+                            </select>
                     </div>
                     <input type="hidden" name="id" value="<?php echo $id; ?>" />
                     <button type="submit" class="btn btn-primary"><?php echo $button ?></button>

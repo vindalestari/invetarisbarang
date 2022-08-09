@@ -2,7 +2,7 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title"> Data Barang Keluar</h3>
+                <h3 class="box-title"> Daftar Barang Keluar</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -43,7 +43,7 @@
                 <form method="post" action="<?= site_url('kelola_barang_keluar/deletebulk'); ?>" id="formbulk">
                     <table class="table table-bordered" style="margin-bottom: 10px" style="width:100%">
                         <tr>
-                            <th style="width: 10px;"><input type="checkbox" name="selectall" /></th>
+
                             <th>No</th>
                             <th>Nama Pendistribusi</th>
                             <th>Nama Barang</th>
@@ -56,7 +56,7 @@
                                 ?>
                             <tr>
 
-                                <td style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $kelola_barang_keluar->id; ?>" />&nbsp;</td>
+
 
                                 <td width="80px"><?php echo ++$start ?></td>
                                 <td><?php
@@ -87,7 +87,7 @@
                     </table>
                     <div class="row" style="margin-bottom: 10px;">
                         <div class="col-md-12">
-                            <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Hapus Data Terpilih</button> <a href="#" class="btn bg-yellow">Total Record : <?php echo $total_rows ?></a>
+                            <a href="#" class="btn bg-yellow">Total Record : <?php echo $total_rows ?></a>
                         </div>
                     </div>
                 </form>
