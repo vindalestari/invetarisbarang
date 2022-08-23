@@ -76,9 +76,9 @@
                                     $nama_barang = $this->db->query("select nama_barang from pengajuan join kelola_barang as barang on (pengajuan.id_barang=barang.id) where pengajuan.id=$kelola_barang_masuk->id_pengajuan")->row()->nama_barang;
                                     echo $nama_barang;
                                     ?></td>
-                                <td><?php echo $kelola_barang_masuk->harga_barang ?></td>
+                                <td><?php echo rupiah($kelola_barang_masuk->harga_barang) ?></td>
                                 <td><?php echo $kelola_barang_masuk->jml_barang_masuk ?></td>
-                                <td><?php echo $kelola_barang_masuk->total_harga ?></td>
+                                <td><?php echo rupiah($kelola_barang_masuk->total_harga) ?></td>
                                 <td><?php echo $kelola_barang_masuk->tgl_masuk ?></td>
                                 <td><?php
                                     if ($kelola_barang_masuk->status == 1) {

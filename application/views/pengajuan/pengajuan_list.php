@@ -2,7 +2,7 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Pengajuan</h3>
+                <h3 class="box-title">Data Pengajuan</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -70,9 +70,9 @@
                                     $nama_supplier = $this->db->query("select nama from kelola_supplier where id=$pengajuan->id_supplier")->row()->nama;
                                     echo $nama_supplier;
                                     ?></td>
-                                <td><?php echo $pengajuan->harga_barang ?></td>
+                                <td><?php echo rupiah($pengajuan->harga_barang) ?></td>
                                 <td><?php echo $pengajuan->jumlah_barang ?></td>
-                                <td><?php echo $pengajuan->total_harga ?></td>
+                                <td><?php echo rupiah($pengajuan->total_harga) ?></td>
                                 <td><?php echo $pengajuan->tanggal_pengajuan ?></td>
                                 <td><?php echo cek_status_pengajuan($pengajuan->status); ?></td>
                                 <td style="text-align:center" width="200px">

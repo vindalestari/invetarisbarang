@@ -6,7 +6,7 @@ $id_groups = $this->ion_auth->get_users_groups($id)->row()->id;
 <!-- Default box -->
 <div class="row">
   <h1><b>Selamat Datang</b></h1>
-  <h2>Sistem Inventaris Barang Dinas Arsip Daerah Kota Cimahi | SIVENBA </h2>
+  <h2>Sistem Inventaris Barang Dinas Arsip Daerah Kota Cimahi</h2>
 </div>
 <?php if ($id_groups != "6") : ?>
   <div class="row">

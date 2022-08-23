@@ -20,9 +20,11 @@ class Kelola_supplier extends CI_Controller
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
         
+        
         if ($q <> '') {
             $config['base_url'] = base_url() . 'kelola_supplier?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'kelola_supplier?q=' . urlencode($q);
+            
         } else {
             $config['base_url'] = base_url() . 'kelola_supplier';
             $config['first_url'] = base_url() . 'kelola_supplier';
@@ -32,6 +34,7 @@ class Kelola_supplier extends CI_Controller
         $config['page_query_string'] = TRUE;
         $config['total_rows'] = $this->Kelola_supplier_model->total_rows($q);
         $kelola_supplier = $this->Kelola_supplier_model->get_limit_data($config['per_page'], $start, $q);
+        // print_r($kelola_supplier);die;
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);

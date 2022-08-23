@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2022 at 11:06 AM
+-- Generation Time: Aug 23, 2022 at 06:07 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -127,11 +127,10 @@ CREATE TABLE `kelola_barang` (
 --
 
 INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`, `klasifikasi`) VALUES
-(7, 'Lemari Arsip Uno UST 1482', '3', 'UNO', ''),
-(8, 'Kursi Kerja', '3', 'UNO', ''),
-(9, 'kulkas', '1', 'IKEA', ''),
-(10, 'kursi', '0', 'IKEA', ''),
-(11, 'Lemari Skat', '0', 'UNO', 'Furniture');
+(13, 'Meja Kerja Ekstra-Beech/Black-Include Laci', '2', 'UNO OFFICE', 'Furniture'),
+(14, 'LemariI Arsip atas Pintu Kaca maple-white - Arsip ', '0', 'UNO OFFICE', 'Furniture'),
+(15, 'Lemari Arsip Sliding Kaca-L33AK', '0', 'LION', 'Furniture'),
+(16, 'Filing Cabinet 4 Laci, Filling Cabinet 4 Laci-L44', '0', 'LION', 'Furniture');
 
 -- --------------------------------------------------------
 
@@ -153,13 +152,10 @@ CREATE TABLE `kelola_barang_keluar` (
 --
 
 INSERT INTO `kelola_barang_keluar` (`id`, `id_user`, `id_barang`, `jml_barang_keluar`, `tgl_keluar`, `tujuan`) VALUES
-(7, 1, 7, '1', '2022-07-12', 'R. Bendahara'),
-(8, 1, 7, '1', '2022-07-12', 'R. Sekretariat'),
-(9, 1, 8, '1', '2022-08-05', 'R.Admin'),
-(10, 1, 8, '', '2022-08-05', ''),
-(11, 1, 9, '2', '2022-08-08', 'R.Admin'),
-(12, 1, 10, '2', '2022-08-08', 'r.sekre'),
-(13, 1, 9, '1', '2022-08-09', 'R.Bendahara');
+(15, 1, 14, '1', '2022-08-12', 'R.Kadis'),
+(16, 1, 14, '1', '2022-08-13', 'R.Bendahara'),
+(17, 1, 14, '1', '2022-08-13', 'R.Kadis'),
+(18, 1, 13, '1', '2022-08-14', 'R.Kadis');
 
 -- --------------------------------------------------------
 
@@ -184,10 +180,9 @@ CREATE TABLE `kelola_barang_masuk` (
 --
 
 INSERT INTO `kelola_barang_masuk` (`id`, `id_user`, `id_supplier`, `harga_barang`, `jml_barang_masuk`, `tgl_masuk`, `status`, `id_pengajuan`, `total_harga`) VALUES
-(12, 10, 1, '1500000', '4', '2022-07-16', 1, 19, 6000000),
-(13, 10, 1, '100000', '1', '2022-08-05', 1, 20, 100000),
-(14, 10, 1, '100000', '4', '2022-08-08', 1, 21, 400000),
-(15, 10, 1, '100000', '2', '2022-08-08', 1, 22, 200000);
+(17, 10, 6, '1500000', '3', '2022-08-12', 1, 25, 4500000),
+(18, 10, 6, '100000', '2', '2022-08-13', 1, 26, 200000),
+(19, 10, 4, '100000', '1', '2022-08-14', 1, 28, 100000);
 
 -- --------------------------------------------------------
 
@@ -207,8 +202,11 @@ CREATE TABLE `kelola_supplier` (
 --
 
 INSERT INTO `kelola_supplier` (`id`, `nama`, `telepon`, `alamat`) VALUES
-(1, 'NB MEBEL', '089776543994', 'Jl. Cihanjuang'),
-(2, 'Cahahaya Abadi Mebel', '083166764253', 'Jl. Katumiri No.6');
+(4, 'Cellini', '(022) 73513777', 'Jl. Gatot Subroto No.74, Lkr. Sel., Kec. Lengkong,'),
+(5, 'SOHO.ID Furniture Store', '(022) 73280790', 'Jl. Ibrahim Adjie Jl. Terusan Kiaracondong No.423,'),
+(6, 'Diana Eva Furniture', '(022) 6070901', 'Jalan Peta No.177 Lingkar Selatan Bojongloa Kidul,'),
+(7, 'Viku Furniture Interior', '0838-2199-9917', 'Jl. A.H. Nasution No.98, Sukamiskin, Kec. Arcamani'),
+(8, 'Chandra Karya Bandung', '(022) 20567766', 'Jl. Pajajaran No.101, Arjuna, Kec. Cicendo, Kota B');
 
 -- --------------------------------------------------------
 
@@ -293,10 +291,10 @@ CREATE TABLE `pengajuan` (
 --
 
 INSERT INTO `pengajuan` (`id`, `id_barang`, `jumlah_barang`, `tanggal_pengajuan`, `status`, `harga_barang`, `id_supplier`, `total_harga`) VALUES
-(19, 8, '4', '2022-07-16', 1, '1500000', 1, 6000000),
-(20, 7, '1', '2022-08-05', 1, '100000', 1, 100000),
-(21, 9, '4', '2022-08-08', 1, '100000', 1, 400000),
-(22, 10, '2', '2022-08-08', 1, '100000', 1, 200000);
+(25, 14, '3', '2022-08-12', 1, '1500000', 6, 4500000),
+(26, 13, '2', '2022-08-13', 1, '100000', 6, 200000),
+(27, 13, '1', '2022-08-13', 2, '100000', 4, 100000),
+(28, 13, '1', '2022-08-14', 1, '100000', 4, 100000);
 
 -- --------------------------------------------------------
 
@@ -451,25 +449,25 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kelola_barang`
 --
 ALTER TABLE `kelola_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_keluar`
 --
 ALTER TABLE `kelola_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_masuk`
 --
 ALTER TABLE `kelola_barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `kelola_supplier`
 --
 ALTER TABLE `kelola_supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `menu`
@@ -487,7 +485,7 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `setting`

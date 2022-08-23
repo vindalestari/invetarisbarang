@@ -45,13 +45,18 @@ class Kelola_barang_masuk_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
-        $this->db->or_like('id_user', $q);
-        $this->db->or_like('id_supplier', $q);
-        $this->db->or_like('harga_barang', $q);
-        $this->db->or_like('jml_barang_masuk', $q);
-        $this->db->or_like('tgl_masuk', $q);
+        $this->db->select("kelola_barang_masuk.*,users.first_name,users.last_name,kelola_supplier.nama");
+        $this->db->join('users','kelola_barang_masuk.id_user=users.id');
+        $this->db->join('kelola_supplier','kelola_barang_masuk.id_supplier=kelola_supplier.id');
+        $this->db->order_by('kelola_barang_masuk.id', $this->order);
+        // $this->db->like('id', $q);
+        $this->db->or_like('users.first_name', $q);
+        $this->db->or_like('users.last_name', $q);
+        $this->db->or_like('kelola_supplier.nama', $q);
+        // $this->db->or_like('id_supplier', $q);
+        // $this->db->or_like('harga_barang', $q);
+        // $this->db->or_like('jml_barang_masuk', $q);
+        // $this->db->or_like('tgl_masuk', $q);
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

@@ -46,14 +46,19 @@ class Kelola_barang_keluar_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
-        $this->db->or_like('id_user', $q);
-        $this->db->or_like('id_barang', $q);
-        // $this->db->or_like('nama_barang', $q);
-        $this->db->or_like('jml_barang_keluar', $q);
-        $this->db->or_like('tgl_keluar', $q);
-        $this->db->or_like('tujuan', $q);
+        $this->db->select('users.first_name,users.last_name,kelola_barang.nama_barang,kelola_barang_keluar.*');
+        $this->db->join('users','kelola_barang_keluar.id_user=users.id');
+        $this->db->join('kelola_barang','kelola_barang_keluar.id_barang=kelola_barang.id');
+        $this->db->order_by('kelola_barang_keluar.id', $this->order);
+        // $this->db->like('id', $q);
+        // $this->db->or_like('id_user', $q);
+        $this->db->or_like('kelola_barang.nama_barang', $q);
+        $this->db->or_like('users.first_name', $q);
+        $this->db->or_like('users.last_name', $q);
+        // // $this->db->or_like('nama_barang', $q);
+        // $this->db->or_like('jml_barang_keluar', $q);
+        // $this->db->or_like('tgl_keluar', $q);
+        // $this->db->or_like('tujuan', $q);
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

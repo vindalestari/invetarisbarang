@@ -66,7 +66,7 @@ class Kelola_barang_keluar extends CI_Controller
                 'tgl_keluar' => $row->tgl_keluar,
                 'tujuan' => $row->tujuan,
             );
-            $data['title'] = 'Kelola Barang Keluar';
+            $data['title'] = 'Daftar Barang Keluar';
             $data['subtitle'] = '';
             $data['crumb'] = [
                 'Dashboard' => '',

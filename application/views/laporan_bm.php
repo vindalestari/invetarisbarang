@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Laporan Barang Masuk</h3>
+        <h3 class="box-title">Data Laporan Barang Masuk</h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
             <i class="fa fa-minus"></i></button>
@@ -108,7 +108,7 @@
                       ?></td>
                   <td><strong><?php echo $barang_masuk->harga_barang ?></strong></td>
                   <td><?php echo $barang_masuk->jml_barang_masuk ?></td>
-                  <td><?php echo $barang_masuk->total_harga ?></td>
+                  <td><?php echo rupiah($barang_masuk->total_harga) ?></td>
                   <td><?php echo $barang_masuk->tgl_masuk ?></td>
                   <td><?php echo status_barang($barang_masuk->status) ?></td>
 

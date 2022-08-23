@@ -14,8 +14,15 @@
             <!-- /.box-header -->
             <div class="box-body">
         <table class="table">
-	    <tr><td>Id User</td><td><?php echo $id_user; ?></td></tr>
-	    <tr><td>Id Supplier</td><td><?php echo $id_supplier; ?></td></tr>
+        
+	    <tr><td>Nama Penyetuju</td><td><?php $first_name = $this->db->query("select first_name,last_name from users where id=$id_user")->row()->first_name;
+                                    $last_name = $this->db->query("select first_name,last_name from users where id=$id_user")->row()->last_name;
+                                    echo $first_name . " " . $last_name; ?></td></tr>
+	    <tr><td>Nama Supplier</td><td>
+            <?php
+                                    $nama_supplier = $this->db->query("select nama from kelola_supplier where id=$id_supplier")->row()->nama;
+                                    echo $nama_supplier;
+                                    ?></td></tr>
 	    <tr><td>Harga Barang</td><td><?php echo $harga_barang; ?></td></tr>
 	    <tr><td>Jml Barang Masuk</td><td><?php echo $jml_barang_masuk; ?></td></tr>
 	    <tr><td>Tgl Masuk</td><td><?php echo $tgl_masuk; ?></td></tr>

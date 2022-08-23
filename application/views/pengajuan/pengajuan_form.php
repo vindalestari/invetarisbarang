@@ -54,7 +54,7 @@
         </div>
 	    <div class="form-group">
             <label for="varchar">Harga Satuan Barang <?php echo form_error('harga_barang') ?></label>
-            <input type="number"  min="1" class="form-control" name="harga_barang" id="harga_barang" placeholder="Harga Satuan Barang" value="<?php echo $harga_barang; ?>" />
+            <input type="text"  min="1" class="form-control" name="harga_barang" id="harga_barang" placeholder="Harga Satuan Barang" value="<?php echo $harga_barang; ?>" />
         </div>
 	    <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 

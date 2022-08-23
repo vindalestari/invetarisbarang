@@ -41,12 +41,13 @@ class Kelola_supplier_model extends CI_Model
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
+        // print_r($q);die;
+        // $this->db->like('id', $q);
+        $this->db->like('nama', $q);
+        $this->db->or_like('telepon', $q);
+        $this->db->or_like('alamat', $q);
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('telepon', $q);
-	$this->db->or_like('alamat', $q);
-	$this->db->limit($limit, $start);
+	    $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
