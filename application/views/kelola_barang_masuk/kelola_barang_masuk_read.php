@@ -23,7 +23,7 @@
                                     $nama_supplier = $this->db->query("select nama from kelola_supplier where id=$id_supplier")->row()->nama;
                                     echo $nama_supplier;
                                     ?></td></tr>
-	    <tr><td>Harga Barang</td><td><?php echo $harga_barang; ?></td></tr>
+	    <tr><td>Harga Barang</td><td><?php echo rupiah($harga_barang); ?></td></tr>
 	    <tr><td>Jml Barang Masuk</td><td><?php echo $jml_barang_masuk; ?></td></tr>
 	    <tr><td>Tgl Masuk</td><td><?php echo $tgl_masuk; ?></td></tr>
 	    <tr><td><a href="<?php echo site_url('kelola_barang_masuk') ?>" class="btn bg-purple">Cancel</a></td></tr>

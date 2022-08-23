@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2022 at 06:07 AM
+-- Generation Time: Aug 23, 2022 at 06:30 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -83,7 +83,6 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (3, 4),
 (5, 4),
 (1, 42),
-(1, 110),
 (1, 113),
 (1, 114),
 (1, 115),
@@ -106,7 +105,9 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (6, 122),
 (1, 123),
 (6, 123),
-(1, 119);
+(1, 119),
+(0, 124),
+(1, 110);
 
 -- --------------------------------------------------------
 
@@ -127,7 +128,7 @@ CREATE TABLE `kelola_barang` (
 --
 
 INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`, `klasifikasi`) VALUES
-(13, 'Meja Kerja Ekstra-Beech/Black-Include Laci', '2', 'UNO OFFICE', 'Furniture'),
+(13, 'Meja Kerja Ekstra-Beech/Black-Include Laci', '1', 'UNO OFFICE', 'Furniture'),
 (14, 'LemariI Arsip atas Pintu Kaca maple-white - Arsip ', '0', 'UNO OFFICE', 'Furniture'),
 (15, 'Lemari Arsip Sliding Kaca-L33AK', '0', 'LION', 'Furniture'),
 (16, 'Filing Cabinet 4 Laci, Filling Cabinet 4 Laci-L44', '0', 'LION', 'Furniture');
@@ -155,7 +156,8 @@ INSERT INTO `kelola_barang_keluar` (`id`, `id_user`, `id_barang`, `jml_barang_ke
 (15, 1, 14, '1', '2022-08-12', 'R.Kadis'),
 (16, 1, 14, '1', '2022-08-13', 'R.Bendahara'),
 (17, 1, 14, '1', '2022-08-13', 'R.Kadis'),
-(18, 1, 13, '1', '2022-08-14', 'R.Kadis');
+(18, 1, 13, '1', '2022-08-14', 'R.Kadis'),
+(19, 1, 13, '1', '2022-08-23', 'R.Kadis');
 
 -- --------------------------------------------------------
 
@@ -206,7 +208,7 @@ INSERT INTO `kelola_supplier` (`id`, `nama`, `telepon`, `alamat`) VALUES
 (5, 'SOHO.ID Furniture Store', '(022) 73280790', 'Jl. Ibrahim Adjie Jl. Terusan Kiaracondong No.423,'),
 (6, 'Diana Eva Furniture', '(022) 6070901', 'Jalan Peta No.177 Lingkar Selatan Bojongloa Kidul,'),
 (7, 'Viku Furniture Interior', '0838-2199-9917', 'Jl. A.H. Nasution No.98, Sukamiskin, Kec. Arcamani'),
-(8, 'Chandra Karya Bandung', '(022) 20567766', 'Jl. Pajajaran No.101, Arjuna, Kec. Cicendo, Kota B');
+(8, 'Chandra Karya Cimahi', '(022) 20567766', 'Jl. Pajajaran No.101, Arjuna, Kec. Cicendo, Kota B');
 
 -- --------------------------------------------------------
 
@@ -236,9 +238,9 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (43, 11, 3, 42, 'fas fa-angle-double-right', 'Users', 'users', '1', 1),
 (44, 12, 3, 42, 'fas fa-angle-double-right', 'Groups', 'groups', '2', 1),
 (92, 2, 1, 0, 'empty', 'MASTER DATA', '#', 'masterdata', 1),
-(110, 12, 1, 0, 'fab fa-amazon-pay', 'DEV', '#', '#', 1),
-(111, 14, 2, 110, 'fas fa-cog', 'Settting', 'setting', 'setting', 1),
-(112, 13, 2, 110, 'fas fa-equals', 'Menu', 'cms/menu/side-menu', 'navMenu', 1),
+(110, 14, 1, 0, 'fab fa-amazon-pay', 'DEV', '#', '#', 1),
+(111, 16, 2, 110, 'fas fa-cog', 'Settting', 'setting', 'setting', 1),
+(112, 15, 2, 110, 'fas fa-equals', 'Menu', 'cms/menu/side-menu', 'navMenu', 1),
 (113, 3, 2, 92, 'fas fa-address-book', 'Kelola User', '#', '#', 1),
 (114, 4, 3, 113, 'fas fa-address-card', 'Users', 'user', '1', 1),
 (115, 5, 3, 113, 'far fa-address-book', 'Groups', 'groups', '1', 1),
@@ -248,8 +250,9 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (119, 9, 2, 92, 'fas fa-cart-plus', 'Daftar Barang Keluar', 'kelola_barang_keluar', '#', 1),
 (120, 11, 2, 92, 'fas fa-chart-area', 'Laporan', 'laporan', '#', 1),
 (121, 10, 2, 92, 'far fa-save', 'Pengajuan', 'pengajuan', '#', 1),
-(122, 1, 2, 120, 'fab fa-accusoft', 'laporan barang masuk', 'laporan/laporan_barang_masuk', '#', 1),
-(123, 1, 2, 120, 'fas fa-ad', 'laporan barang keluar', 'laporan/laporan_barang_keluar', '#', 1);
+(122, 12, 3, 120, 'fab fa-accusoft', 'laporan barang masuk', 'laporan/laporan_barang_masuk', '#', 1),
+(123, 13, 3, 120, 'fas fa-ad', 'laporan barang keluar', 'laporan/laporan_barang_keluar', '#', 1),
+(124, 17, 1, 0, 'fas fa-birthday-cake', 'hiden', '#', '#', 1);
 
 -- --------------------------------------------------------
 
@@ -455,7 +458,7 @@ ALTER TABLE `kelola_barang`
 -- AUTO_INCREMENT for table `kelola_barang_keluar`
 --
 ALTER TABLE `kelola_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_masuk`
@@ -473,7 +476,7 @@ ALTER TABLE `kelola_supplier`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
