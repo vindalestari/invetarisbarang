@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2022 at 06:30 AM
+-- Generation Time: Aug 23, 2022 at 07:05 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -327,7 +327,7 @@ INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
-  `NIK` varchar(50) NOT NULL,
+  `nik` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(254) NOT NULL,
   `active` tinyint(1) UNSIGNED DEFAULT NULL,
@@ -341,9 +341,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `NIK`, `password`, `email`, `active`, `first_name`, `last_name`, `phone`, `image`) VALUES
-(1, '0', '$2y$08$Pzs37WpnTNtr1xZpsIdz5OcUb2q3tqpcwXs9hiJroy7hP7byfn7Y.', 'admin@trisman.com', 1, 'Trisman', 'Sopandi', 'admin@trisman.com', '_CPC3217_copy.jpg'),
-(10, '0', '$2y$08$qQBqt.uD7bf5aUaC4L.BnuNhoDLbJvauvPbCRgrvJio3V6HR.xDXm', 'kepaladinas@rony.com', 1, 'Mochamad', 'Rony', '088278891023', 'teacher4.png');
+INSERT INTO `users` (`id`, `nik`, `password`, `email`, `active`, `first_name`, `last_name`, `phone`, `image`) VALUES
+(1, '696969669', '$2y$08$Pzs37WpnTNtr1xZpsIdz5OcUb2q3tqpcwXs9hiJroy7hP7byfn7Y.', 'admin@trisman.com', 1, 'Trisman', 'Sopandi', 'admin@trisman.com', '_CPC3217_copy.jpg'),
+(10, '0', '$2y$08$qQBqt.uD7bf5aUaC4L.BnuNhoDLbJvauvPbCRgrvJio3V6HR.xDXm', 'kepaladinas@rony.com', 1, 'Mochamad', 'Rony', '088278891023', 'teacher4.png'),
+(11, '', '$2y$08$2EBp1pUfHd9FOGs36SMbYOTsox1JsKiFo0QkgK.IIE3tQUU4GczZW', 'apa@gmail.com', 1, 'apa', 'apa', '089', 'default.jpg'),
+(12, '000', '$2y$08$PJZgfAIawMwqdr9k93sgp.UmnZL8x7Rjwo/ykiHt3OeX2oUqSZ2Ie', 'asjkdn@gmail.com', 1, 'jkasndkj', 'ajksndjkasn', '0000', 'default.jpg'),
+(13, '999666', '$2y$08$srKo2MSJLO2YdvU47HPNhOPXRUj.Z6IR7qrvzxO3thkPk4wxAnkMe', 'agus@agus.com', 1, 'agus', 'agus', '089897655', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -362,8 +365,11 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(34, 1, 1),
-(35, 10, 6);
+(40, 1, 1),
+(35, 10, 6),
+(36, 11, 6),
+(37, 12, 6),
+(39, 13, 6);
 
 --
 -- Indexes for dumped tables
@@ -500,13 +506,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Constraints for dumped tables

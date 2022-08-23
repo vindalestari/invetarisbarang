@@ -52,6 +52,10 @@
                               <?php echo lang('create_user_phone_label', 'phone'); ?> <br />
                               <?php echo form_input($phone); ?>
                         </p>
+                        <p>
+                              <?php echo lang('create_user_nik_label', 'nik'); ?> <br />
+                              <?php echo form_input($nik); ?>
+                        </p>
                         <!-- <p>
                     <?php echo lang('create_user_nik_label', 'nik'); ?> <br />
                     <?php echo form_input($nik); ?>

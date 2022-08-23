@@ -31,10 +31,10 @@
           <?php echo form_input($last_name); ?>
         </div>
 
-        <!-- <div class="form-group">
-                          <?php echo lang('edit_user_company_label', 'company'); ?> <br />
-                          <?php echo form_input($company); ?>
-                    </div> -->
+        <div class="form-group">
+          <?php echo lang('edit_user_nik_label', 'nik'); ?> <br />
+          <?php echo form_input($nik); ?>
+        </div>
 
         <div class="form-group">
           <?php echo lang('edit_user_phone_label', 'phone'); ?> <br />

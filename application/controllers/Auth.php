@@ -427,6 +427,7 @@ class Auth extends CI_Controller
 		}
 
 		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
+		$this->form_validation->set_rules('nik', $this->lang->line('create_user_validation_nik_label'), 'trim');
 
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
@@ -440,6 +441,7 @@ class Auth extends CI_Controller
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
 				'phone' => $this->input->post('phone'),
+				'nik' => $this->input->post('nik'),
 
 			);
 			$hak_akses = $this->input->post('groups[]');
@@ -504,13 +506,13 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('phone'),
 				'class' => 'form-control'
 			);
-			// $this->data['nik'] = array(
-			// 	'name' => 'nik',
-			// 	'id' => 'nik',
-			// 	'type' => 'text',
-			// 	'value' => $this->form_validation->set_value('nik'),
-			// 	'class' => 'form-control'
-			// );
+			$this->data['nik'] = array(
+				'name' => 'nik',
+				'id' => 'nik',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('nik'),
+				'class' => 'form-control'
+			);
 			// $this->data['jabatan'] = array(
 			// 	'name' => 'jabatan',
 			// 	'id' => '',
@@ -717,6 +719,7 @@ class Auth extends CI_Controller
 
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
+		$this->form_validation->set_rules('nik', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'trim|required');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim|required');
 		// $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim|required');
@@ -739,6 +742,7 @@ class Auth extends CI_Controller
 					'last_name' => $this->input->post('last_name'),
 					'company' => $this->input->post('company'),
 					'phone' => $this->input->post('phone'),
+					'nik' => $this->input->post('nik'),
 				);
 
 				// update the password if it was posted
@@ -799,6 +803,13 @@ class Auth extends CI_Controller
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('last_name', $user->last_name),
 			'class' => 'form-control'
+		);
+		$this->data['nik'] = array(
+			'name'  => 'nik',
+			'id'    => 'nik',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('nik', $user->nik),
+			'class' => 'form-control'
 
 		);
 		$this->data['company'] = array(
@@ -812,7 +823,7 @@ class Auth extends CI_Controller
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
-			// 'value' => $this->form_validation->set_value('phone', $user->phone),
+			'value' => $this->form_validation->set_value('phone', $user->phone),
 			'class' => 'form-control'
 		);
 		$this->data['password'] = array(
