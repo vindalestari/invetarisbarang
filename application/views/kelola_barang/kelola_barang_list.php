@@ -47,7 +47,6 @@
 
                             <th>No</th>
                             <th>Nama Barang</th>
-                            <th>Jumlah</th>
                             <th>Klasifikasi</th>
                             <th>Merk</th>
                             <th>Action</th>
@@ -60,7 +59,6 @@
 
                                 <td width="80px"><?php echo ++$start ?></td>
                                 <td><?php echo $kelola_barang->nama_barang ?></td>
-                                <td><?php echo $kelola_barang->jumlah ?></td>
                                 <td><?php echo $kelola_barang->klasifikasi ?></td>
                                 <td><?php echo $kelola_barang->merk ?></td>
                                 <td style="text-align:center" width="200px">
@@ -72,7 +70,7 @@
 
                                     echo ' ';
                                     if ($kelola_barang->jumlah != 0) {
-                                        echo anchor(site_url('kelola_barang/distribusi/' . $kelola_barang->id), ' <i class="fas fa-cart-arrow-down"></i>', 'class="btn btn-xs btn-success" data-toggle="tooltip" title="Distribusi"');
+                                       echo anchor(site_url('kelola_barang/distribusi/' . $kelola_barang->id), ' <i class="fas fa-cart-arrow-down"></i>', 'class="btn btn-xs btn-success" data-toggle="tooltip" title="Distribusi"');
                                         echo ' ';
                                     }
                                     ?>

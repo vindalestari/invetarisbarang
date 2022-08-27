@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-md-6">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title"><?= $button; ?> Kelola_barang</h3>
+                <h3 class="box-title"><?= $button; ?> Kelola_barang_Keluar</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i></button>
