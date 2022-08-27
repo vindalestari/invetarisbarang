@@ -2,7 +2,7 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Data Pengajuan</h3>
+                <h3 class="box-title"> Kelola Pengajuan</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                         <i class="fa fa-minus"></i></button>
@@ -12,11 +12,16 @@
             </div>
 
             <div class="box-body">
+                <?php
+                if ($this->session->flashdata('success')) :
+                ?>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo $this->session->flashdata('success'); ?>
+                    </div>
+                <?php endif; ?>
                 <div class="row" style="margin-bottom: 10px">
                     <div class="col-md-4">
-                        <?php if ($this->ion_auth->in_group(1)) : ?>
-                            <?php echo anchor(site_url('pengajuan/create'), '<i class="fa fa-plus"></i> Create', 'class="btn bg-purple"'); ?>
-                        <?php endif; ?>
                     </div>
                     <div class="col-md-4 text-center">
                         <div style="margin-top: 8px" id="message">
@@ -26,14 +31,14 @@
                     <div class="col-md-1 text-right">
                     </div>
                     <div class="col-md-3 text-right">
-                        <form action="<?php echo site_url('pengajuan/index'); ?>" class="form-inline" method="get" style="margin-top:10px">
+                        <form action="<?php echo site_url('kelola_barang_keluar/index'); ?>" class="form-inline" method="get" style="margin-top:10px">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                                 <span class="input-group-btn">
                                     <?php
                                     if ($q <> '') {
                                     ?>
-                                        <a href="<?php echo site_url('pengajuan'); ?>" class="btn btn-default">Reset</a>
+                                        <a href="<?php echo site_url('kelola_barang_keluar'); ?>" class="btn btn-default">Reset</a>
                                     <?php
                                     }
                                     ?>
@@ -43,47 +48,44 @@
                         </form>
                     </div>
                 </div>
-                <form method="post" action="<?= site_url('pengajuan/deletebulk'); ?>" id="formbulk">
+                <form method="post" action="<?= site_url('kelola_barang_keluar/deletebulk'); ?>" id="formbulk">
                     <table class="table table-bordered" style="margin-bottom: 10px" style="width:100%">
                         <tr>
+
                             <th>No</th>
+                            <th>Nama Pendistribusi</th>
                             <th>Nama Barang</th>
-                            <th>Nama Supplier</th>
-                            <th>Harga Barang</th>
-                            <th>Jumlah Barang</th>
-                            <th>Total Harga</th>
-                            <th>Tanggal Pengajuan</th>
+                            <th>Jml Barang Keluar</th>
+                            <th>Tgl Keluar</th>
                             <th>Tujuan</th>
-                            <th>Status</th>
+                            <th>Status Penerimaan</th>
                             <th>Action</th>
                         </tr><?php
-                                foreach ($pengajuan_data as $pengajuan) {
+                                foreach ($kelola_pengajuan_data as $kelola_pengajuan) {
                                 ?>
                             <tr>
 
 
+
                                 <td width="80px"><?php echo ++$start ?></td>
                                 <td><?php
-                                    $nama_barang = $this->db->query("select nama_barang from kelola_barang where id=$pengajuan->id_barang")->row()->nama_barang;
-                                    echo $nama_barang;
+                                    $first_name = $this->db->query("select first_name,last_name from users where id=$kelola_pengajuan->id_user")->row()->first_name;
+                                    $last_name = $this->db->query("select first_name,last_name from users where id=$kelola_pengajuan->id_user")->row()->last_name;
+                                    echo $first_name . " " . $last_name;
                                     ?></td>
                                 <td><?php
-                                    $nama_supplier = $this->db->query("select nama from kelola_supplier where id=$pengajuan->id_supplier")->row()->nama;
-                                    echo $nama_supplier;
+                                    $nama_barang = $this->db->get_where('kelola_barang', ['id' => $kelola_pengajuan->id_barang])->row();
+                                    echo $nama_barang->nama_barang;
+
                                     ?></td>
-                                <td><?php echo rupiah($pengajuan->harga_barang) ?></td>
-                                <td><?php echo $pengajuan->jumlah_barang ?></td>
-                                <td><?php echo rupiah($pengajuan->total_harga) ?></td>
-                                <td><?php echo $pengajuan->tanggal_pengajuan ?></td>
-                                <td><?php echo $pengajuan->tujuan ?></td>
-                                <td><?php echo cek_status_pengajuan($pengajuan->status); ?></td>
+                                <td><?php echo $kelola_pengajuan->jml_barang_keluar ?></td>
+                                <td><?php echo $kelola_pengajuan->tgl_keluar ?></td>
+                                <td><?php echo $kelola_pengajuan->tujuan ?></td>
+                                <td><?php echo $kelola_pengajuan->status_penerimaan ?></td>
                                 <td style="text-align:center" width="200px">
-                                    <?php
-                                    echo anchor(site_url('pengajuan/read/' . $pengajuan->id), '<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"');
-                                    ?>
-                                    <?php if ($this->ion_auth->in_group(6) and $pengajuan->status == 0) : ?>
-                                        <a href="<?php echo site_url('Pengajuan/setujui/' . $pengajuan->id); ?>" class="btn btn-xs btn-success">Setujui</a>
-                                        <a href="<?php echo site_url('Pengajuan/tidak_disetujui/' . $pengajuan->id); ?>" class="btn btn-xs btn-danger">Tidak disetujui</a>
+
+                                    <?php if ($kelola_pengajuan->status_penerimaan == 'Belum Diterima') : ?>
+                                        <a href="<?php echo site_url('Pengajuan/terima/' . $kelola_pengajuan->id); ?>" class="btn btn-xs btn-success">Terima</a>
                                     <?php endif; ?>
 
                                 </td>
@@ -94,6 +96,7 @@
                     </table>
                     <div class="row" style="margin-bottom: 10px;">
                         <div class="col-md-12">
+                            <a href="#" class="btn bg-yellow">Total Record : <?php echo $total_rows ?></a>
                         </div>
                     </div>
                 </form>
@@ -138,7 +141,7 @@
             }).set('onok', function(closeEvent) {
 
                 $.ajax({
-                    url: "pengajuan/deletebulk",
+                    url: "kelola_barang_keluar/deletebulk",
                     type: "post",
                     data: "msg = " + rowsel.join(","),
                     success: function(response) {

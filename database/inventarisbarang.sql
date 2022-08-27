@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2022 at 04:08 AM
+-- Generation Time: Aug 27, 2022 at 05:01 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -107,7 +107,8 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (6, 123),
 (1, 119),
 (0, 124),
-(1, 110);
+(1, 110),
+(1, 125);
 
 -- --------------------------------------------------------
 
@@ -128,12 +129,16 @@ CREATE TABLE `kelola_barang` (
 --
 
 INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`, `klasifikasi`) VALUES
-(13, 'Meja Kerja Ekstra-Beech/Black-Include Laci', '3', 'UNO OFFICE', 'Furniture'),
+(13, 'Meja Kerja Ekstra-Beech/Black-Include Laci', '5', 'UNO OFFICE', 'Furniture'),
 (14, 'LemariI Arsip atas Pintu Kaca maple-white - Arsip ', '0', 'UNO OFFICE', 'Furniture'),
 (15, 'Lemari Arsip Sliding Kaca-L33AK', '0', 'LION', 'Furniture'),
 (16, 'Filing Cabinet 4 Laci, Filling Cabinet 4 Laci-L44', '0', 'LION', 'Furniture'),
 (17, 'kursi p', '0', 'IKEA', 'Furniture'),
-(18, 'kursi p', '0', 'IKEA', 'Furniture');
+(18, 'kursi p', '0', 'IKEA', 'Furniture'),
+(19, 'Tas', '0', 'EGER', 'Furniture'),
+(20, 'Tas', '0', 'UNO', 'Furniture'),
+(21, 'Laptop', '0', 'Asus', 'Furniture'),
+(22, 'kunci', '0', 'UNO', 'Furniture');
 
 -- --------------------------------------------------------
 
@@ -147,19 +152,24 @@ CREATE TABLE `kelola_barang_keluar` (
   `id_barang` int(11) NOT NULL,
   `jml_barang_keluar` varchar(20) NOT NULL,
   `tgl_keluar` date NOT NULL,
-  `tujuan` varchar(50) NOT NULL
+  `tujuan` varchar(50) NOT NULL,
+  `status_penerimaan` enum('Diterima','Belum Diterima') NOT NULL DEFAULT 'Belum Diterima'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kelola_barang_keluar`
 --
 
-INSERT INTO `kelola_barang_keluar` (`id`, `id_user`, `id_barang`, `jml_barang_keluar`, `tgl_keluar`, `tujuan`) VALUES
-(15, 1, 14, '1', '2022-08-12', 'R.Kadis'),
-(16, 1, 14, '1', '2022-08-13', 'R.Bendahara'),
-(17, 1, 14, '1', '2022-08-13', 'R.Kadis'),
-(18, 1, 13, '1', '2022-08-14', 'R.Kadis'),
-(19, 1, 13, '1', '2022-08-23', 'R.Kadis');
+INSERT INTO `kelola_barang_keluar` (`id`, `id_user`, `id_barang`, `jml_barang_keluar`, `tgl_keluar`, `tujuan`, `status_penerimaan`) VALUES
+(15, 1, 14, '1', '2022-08-12', 'R.Kadis', 'Belum Diterima'),
+(16, 1, 14, '1', '2022-08-13', 'R.Bendahara', 'Belum Diterima'),
+(17, 1, 14, '1', '2022-08-13', 'R.Kadis', 'Belum Diterima'),
+(18, 1, 13, '1', '2022-08-14', 'R.Kadis', 'Belum Diterima'),
+(19, 1, 13, '1', '2022-08-23', 'R.Kadis', 'Belum Diterima'),
+(20, 1, 20, '2', '2022-08-27', 'R.Kadis', 'Diterima'),
+(21, 1, 21, '1', '2022-08-27', 'R.Kadis', 'Diterima'),
+(22, 1, 22, '1', '2022-08-27', 'R.Sekretariat', 'Diterima'),
+(23, 1, 22, '1', '2022-08-27', 'R.Sekretariat', 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -187,7 +197,11 @@ INSERT INTO `kelola_barang_masuk` (`id`, `id_user`, `id_supplier`, `harga_barang
 (17, 10, 6, '1500000', '3', '2022-08-12', 1, 25, 4500000),
 (18, 10, 6, '100000', '2', '2022-08-13', 1, 26, 200000),
 (19, 10, 4, '100000', '1', '2022-08-14', 1, 28, 100000),
-(20, 10, 4, '100000', '2', '2022-08-24', 1, 29, 200000);
+(20, 10, 4, '100000', '2', '2022-08-24', 1, 29, 200000),
+(21, 10, 4, '13000', '2', '2022-08-27', 1, 31, 26000),
+(22, 10, 6, '222222', '2', '2022-08-27', 1, 32, 444444),
+(23, 10, 4, '20000000', '1', '2022-08-27', 1, 33, 20000000),
+(24, 10, 4, '150000', '1', '2022-08-27', 1, 34, 150000);
 
 -- --------------------------------------------------------
 
@@ -242,21 +256,22 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (43, 11, 3, 42, 'fas fa-angle-double-right', 'Users', 'users', '1', 1),
 (44, 12, 3, 42, 'fas fa-angle-double-right', 'Groups', 'groups', '2', 1),
 (92, 2, 1, 0, 'empty', 'MASTER DATA', '#', 'masterdata', 1),
-(110, 14, 1, 0, 'fab fa-amazon-pay', 'DEV', '#', '#', 1),
-(111, 16, 2, 110, 'fas fa-cog', 'Settting', 'setting', 'setting', 1),
-(112, 15, 2, 110, 'fas fa-equals', 'Menu', 'cms/menu/side-menu', 'navMenu', 1),
+(110, 16, 2, 124, 'fab fa-amazon-pay', 'DEV', '#', '#', 1),
+(111, 18, 3, 110, 'fas fa-cog', 'Settting', 'setting', 'setting', 1),
+(112, 17, 3, 110, 'fas fa-equals', 'Menu', 'cms/menu/side-menu', 'navMenu', 1),
 (113, 3, 2, 92, 'fas fa-address-book', 'Kelola User', '#', '#', 1),
 (114, 4, 3, 113, 'fas fa-address-card', 'Users', 'user', '1', 1),
-(115, 5, 3, 113, 'far fa-address-book', 'Groups', 'groups', '1', 1),
-(116, 6, 2, 92, 'far fa-id-badge', 'Kelola Supplier', 'kelola_supplier', '#', 1),
-(117, 7, 2, 92, 'fas fa-cart-plus', 'Kelola Barang', 'kelola_barang', '#', 1),
-(118, 8, 2, 92, 'fas fa-cart-plus', 'Kelola Barang Masuk', 'kelola_barang_masuk', '#', 1),
-(119, 9, 2, 92, 'fas fa-cart-plus', 'Daftar Barang Keluar', 'kelola_barang_keluar', '#', 1),
+(115, 15, 2, 124, 'far fa-address-book', 'Groups', 'groups', '1', 1),
+(116, 5, 2, 92, 'far fa-id-badge', 'Kelola Supplier', 'kelola_supplier', '#', 1),
+(117, 6, 2, 92, 'fas fa-cart-plus', 'Kelola Barang', 'kelola_barang', '#', 1),
+(118, 7, 2, 92, 'fas fa-cart-plus', 'Kelola Barang Masuk', 'kelola_barang_masuk', '#', 1),
+(119, 8, 2, 92, 'fas fa-cart-plus', 'Daftar Barang Keluar', 'kelola_barang_keluar', '#', 1),
 (120, 11, 2, 92, 'fas fa-chart-area', 'Laporan', 'laporan', '#', 1),
-(121, 10, 2, 92, 'far fa-save', 'Pengajuan', 'pengajuan', '#', 1),
+(121, 9, 2, 92, 'far fa-save', 'Pengajuan', 'pengajuan', '#', 1),
 (122, 12, 3, 120, 'fab fa-accusoft', 'laporan barang masuk', 'laporan/laporan_barang_masuk', '#', 1),
 (123, 13, 3, 120, 'fas fa-ad', 'laporan barang keluar', 'laporan/laporan_barang_keluar', '#', 1),
-(124, 17, 1, 0, 'fas fa-birthday-cake', 'hiden', '#', '#', 1);
+(124, 14, 1, 0, 'fas fa-birthday-cake', 'hiden', '#', '#', 1),
+(125, 10, 2, 92, 'fab fa-accessible-icon', 'Kelola Pengajuan', 'Pengajuan/kelola_pengajuan', '#', 1);
 
 -- --------------------------------------------------------
 
@@ -290,20 +305,25 @@ CREATE TABLE `pengajuan` (
   `status` int(11) NOT NULL,
   `harga_barang` varchar(50) NOT NULL,
   `id_supplier` int(11) NOT NULL,
-  `total_harga` int(11) NOT NULL
+  `total_harga` int(11) NOT NULL,
+  `tujuan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pengajuan`
 --
 
-INSERT INTO `pengajuan` (`id`, `id_barang`, `jumlah_barang`, `tanggal_pengajuan`, `status`, `harga_barang`, `id_supplier`, `total_harga`) VALUES
-(25, 14, '3', '2022-08-12', 1, '1500000', 6, 4500000),
-(26, 13, '2', '2022-08-13', 1, '100000', 6, 200000),
-(27, 13, '1', '2022-08-13', 2, '100000', 4, 100000),
-(28, 13, '1', '2022-08-14', 1, '100000', 4, 100000),
-(29, 13, '2', '2022-08-24', 1, '100000', 4, 200000),
-(30, 13, '3', '2022-08-24', 2, '100000', 4, 300000);
+INSERT INTO `pengajuan` (`id`, `id_barang`, `jumlah_barang`, `tanggal_pengajuan`, `status`, `harga_barang`, `id_supplier`, `total_harga`, `tujuan`) VALUES
+(25, 14, '3', '2022-08-12', 1, '1500000', 6, 4500000, ''),
+(26, 13, '2', '2022-08-13', 1, '100000', 6, 200000, ''),
+(27, 13, '1', '2022-08-13', 2, '100000', 4, 100000, ''),
+(28, 13, '1', '2022-08-14', 1, '100000', 4, 100000, ''),
+(29, 13, '2', '2022-08-24', 1, '100000', 4, 200000, ''),
+(30, 13, '3', '2022-08-24', 2, '100000', 4, 300000, ''),
+(31, 13, '2', '2022-08-27', 1, '13000', 4, 26000, 'R.Sekretariat'),
+(32, 20, '2', '2022-08-27', 1, '222222', 6, 444444, 'R.Kadis'),
+(33, 21, '1', '2022-08-27', 1, '20000000', 4, 20000000, 'R.Kadis'),
+(34, 22, '1', '2022-08-27', 1, '150000', 4, 150000, 'R.Sekretariat');
 
 -- --------------------------------------------------------
 
@@ -458,19 +478,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kelola_barang`
 --
 ALTER TABLE `kelola_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_keluar`
 --
 ALTER TABLE `kelola_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_masuk`
 --
 ALTER TABLE `kelola_barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `kelola_supplier`
@@ -482,7 +502,7 @@ ALTER TABLE `kelola_supplier`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -494,7 +514,7 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `setting`

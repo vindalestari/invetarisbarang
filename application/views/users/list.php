@@ -42,7 +42,6 @@
                   <th><?php echo lang('index_lname_th'); ?></th>
                   <th>NIK</th>
                   <th><?php echo lang('index_email_th'); ?></th>
-                  <th nowrap="nowrap"><?php echo lang('index_groups_th'); ?></th>
                   <th><?php echo lang('index_status_th'); ?></th>
                   <th><?php echo lang('index_action_th'); ?></th>
                 </tr>
@@ -54,14 +53,6 @@
                     <td><?php echo htmlspecialchars($user->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($user->nik, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($user->email, ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td nowrap="nowrap">
-                      <?php $myArray = array(); ?>
-                      <?php foreach ($user->groups as $group) : ?>
-                        <?php $myArray[] = anchor("auth/edit_group/" . $group->id, htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8')); ?>
-                      <?php endforeach ?>
-                      <?= implode(', ', $myArray); ?>
-
-                    </td>
                     <td><?php echo ($user->active) ? anchor("auth/deactivate/" . $user->id, lang('index_active_link'), 'class="btn btn-success btn-xs"') : anchor("auth/activate/" . $user->id, lang('index_inactive_link'), 'class="btn btn-danger  btn-xs"'); ?></td>
                     <td><?php echo anchor("auth/edit_user/" . $user->id, '<i class="fa fa-user-edit"></i>', 'class="btn btn-warning btn-xs" data-toogle="tooltip" title="Edit User"');
                         echo " ";

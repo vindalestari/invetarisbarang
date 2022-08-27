@@ -15,16 +15,13 @@
                 <form action="<?php echo $action; ?>" method="post">
                     <div class="form-group">
                         <label for="varchar">Jumlah Barang Keluar
-                            <input type="number" class="form-control" name="jml_barang_keluar" id="jml_barang_keluar" placeholder="Jumlah Barang" />
+                            <input type="number" class="form-control" id="jml_barang_keluar" value="<?= $jumlah_barang; ?>" placeholder="Jumlah Barang" disabled />
+                            <input type="hidden" class="form-control" name="jml_barang_keluar" id="jml_barang_keluar" value="<?= $jumlah_barang; ?>" placeholder="Jumlah Barang" />
                     </div>
                     <div class="form-group">
                         <label for="varchar">Tujuan
-                            <select name="tujuan" class="form-control" id="">
-                                <option value="R.Kadis">R.Kadis</option>
-                                <option value="R.Sekretariat">R.Sekretariat</option>
-                                <option value="R.Bendahara">R.Bendahara</option>
-                                <option value="R.Perpustakaan">R.Perpustakaan</option>
-                            </select>
+                            <input type="text" class="form-control" disabled value="<?= $tujuan; ?>">
+                            <input type="hidden" class="form-control" value="<?= $tujuan; ?>" name="tujuan">
                     </div>
                     <input type="hidden" name="id" value="<?php echo $id; ?>" />
                     <button type="submit" class="btn btn-primary"><?php echo $button ?></button>

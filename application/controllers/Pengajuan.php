@@ -118,6 +118,7 @@ class Pengajuan extends CI_Controller
                 'tanggal_pengajuan' => date('Y-m-d'),
                 'status' => 0,
                 'harga_barang' => $this->input->post('harga_barang', TRUE),
+                'tujuan' => $this->input->post('tujuan', TRUE),
                 'total_harga' => $this->input->post('harga_barang', TRUE) * $this->input->post('jumlah_barang', TRUE),
             );
 
@@ -125,6 +126,52 @@ class Pengajuan extends CI_Controller
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('pengajuan'));
         }
+    }
+
+    public function kelola_pengajuan()
+    {
+        $this->load->model('Kelola_barang_keluar_model');
+        $q = urldecode($this->input->get('q', TRUE));
+        $start = intval($this->input->get('start'));
+
+        if ($q <> '') {
+            $config['base_url'] = base_url() . 'kelola_barang_keluar?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'kelola_barang_keluar?q=' . urlencode($q);
+        } else {
+            $config['base_url'] = base_url() . 'kelola_barang_keluar';
+            $config['first_url'] = base_url() . 'kelola_barang_keluar';
+        }
+
+        $config['per_page'] = 10;
+        $config['page_query_string'] = TRUE;
+        $config['total_rows'] = $this->Kelola_barang_keluar_model->total_rows($q);
+        $kelola_barang_keluar = $this->Kelola_barang_keluar_model->get_limit_data($config['per_page'], $start, $q);
+
+        $this->load->library('pagination');
+        $this->pagination->initialize($config);
+
+        $data = array(
+            'kelola_pengajuan_data' => $kelola_barang_keluar,
+            'q' => $q,
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+        );
+        $data['title'] = 'Kelola Pengajuan';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Kelola Pengajuan' => '',
+        ];
+
+        $data['page'] = 'pengajuan/kelola_pengajuan_list';
+        $this->load->view('template/backend', $data);
+    }
+
+    public function terima($id)
+    {
+        $this->db->query("UPDATE kelola_barang_keluar SET status_penerimaan ='Diterima' WHERE id = '$id'");
+        $this->session->set_flashdata('success', 'Berhasil Diterima');
+        redirect(site_url('pengajuan/kelola_pengajuan'));
     }
 
     public function setujui($id_pengajuan)

@@ -112,15 +112,22 @@ class Kelola_barang extends CI_Controller
                 'klasifikasi' => $this->input->post('klasifikasi', TRUE),
             );
 
-            $this->Kelola_barang_model->insert($data);
-            $this->session->set_flashdata('success', 'Create Record Success');
-            redirect(site_url('kelola_barang'));
+            // cek jika ada nama barang dan merk yang sama
+            $cek = $this->Kelola_barang_model->cek_nama_barang_merk($data['nama_barang'], $data['merk']);
+            if ($cek > 0) {
+                $this->session->set_flashdata('error', 'Nama Barang dan Merk sudah ada');
+                redirect(site_url('kelola_barang/create'));
+            } else {
+                $this->Kelola_barang_model->insert($data);
+                $this->session->set_flashdata('success', 'Create Record Success');
+                redirect(site_url('kelola_barang'));
+            }
         }
     }
     public function distribusi($id)
     {
         $row = $this->Kelola_barang_model->get_by_id($id);
-
+        $datapengajuan = $this->db->query("SELECT tujuan,jumlah_barang from pengajuan where id_barang = '$id'")->row();
         $data = array(
             'button' => 'Distribusi',
             'action' => site_url('kelola_barang/distribusi_action'),
@@ -128,12 +135,14 @@ class Kelola_barang extends CI_Controller
             'nama_barang' => $row->nama_barang,
             'jumlah' => $row->jumlah,
             'merk' => $row->merk,
+            'tujuan' => $datapengajuan->tujuan,
+            'jumlah_barang' => $datapengajuan->jumlah_barang,
 
             // 'nama_barang' => set_value('nama_barang'),
             // 'jumlah' => set_value('jumlah'),
             // 'merk' => set_value('merk'),
         );
-        $data['title'] = 'Kelola Barang';
+        $data['title'] = 'Kelola Barang Keluar';
         $data['subtitle'] = '';
         $data['crumb'] = [
             'Dashboard' => '',
