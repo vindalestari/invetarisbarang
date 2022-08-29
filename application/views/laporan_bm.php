@@ -106,7 +106,9 @@
                       $query = $this->db->query("select kelola_barang.nama_barang as nama_barang from pengajuan join kelola_barang on pengajuan.id_barang=kelola_barang.id where pengajuan.id=$barang_masuk->id_pengajuan")->row()->nama_barang;
                       echo $query;
                       ?></td>
-                  <td><strong><?php echo $barang_masuk->harga_barang ?></strong></td>
+
+                  <td>
+                    <?php echo rupiah($barang_masuk->harga_barang) ?></td>
                   <td><?php echo $barang_masuk->jml_barang_masuk ?></td>
                   <td><?php echo rupiah($barang_masuk->total_harga) ?></td>
                   <td><?php echo $barang_masuk->tgl_masuk ?></td>

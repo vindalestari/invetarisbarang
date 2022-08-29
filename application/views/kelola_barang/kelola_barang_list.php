@@ -69,10 +69,10 @@
                                     echo ' ';
 
                                     echo ' ';
-                                    if ($kelola_barang->jumlah != 0) {
-                                       echo anchor(site_url('kelola_barang/distribusi/' . $kelola_barang->id), ' <i class="fas fa-cart-arrow-down"></i>', 'class="btn btn-xs btn-success" data-toggle="tooltip" title="Distribusi"');
-                                        echo ' ';
-                                    }
+                                    // if ($kelola_barang->jumlah != 0) {
+                                    //    echo anchor(site_url('kelola_barang/distribusi/' . $kelola_barang->id), ' <i class="fas fa-cart-arrow-down"></i>', 'class="btn btn-xs btn-success" data-toggle="tooltip" title="Distribusi"');
+                                    //     echo ' ';
+                                    // }
                                     ?>
                                 </td>
                             </tr>

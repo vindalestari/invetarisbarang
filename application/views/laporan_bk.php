@@ -97,7 +97,7 @@
                       ?></td>
 
                   <td><?php echo nama_barang($barang_keluar->id_barang) ?></td>
-                  <td><strong><?php echo $barang_keluar->jml_barang_keluar ?></strong></td>
+                  <td><?php echo $barang_keluar->jml_barang_keluar ?></td>
                   <td><?php echo $barang_keluar->tgl_keluar ?></td>
                   <td><?php echo $barang_keluar->tujuan ?></td>
 

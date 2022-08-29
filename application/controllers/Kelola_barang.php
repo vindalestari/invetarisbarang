@@ -178,7 +178,7 @@ class Kelola_barang extends CI_Controller
         $this->db->update('kelola_barang', $data_barang);
 
         $this->session->set_flashdata('success', 'Create Record Success');
-        redirect(site_url('kelola_barang'));
+        redirect(site_url('kelola_barang_masuk'));
     }
 
     public function update($id)

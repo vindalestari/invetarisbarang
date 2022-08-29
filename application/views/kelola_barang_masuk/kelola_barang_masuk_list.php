@@ -95,6 +95,10 @@
                                         echo anchor(site_url('kelola_barang_masuk/update_action/' . $kelola_barang_masuk->id), ' <i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"');
                                         echo ' ';
                                     }
+                                    if (cek_jumlah_barang($kelola_barang_masuk->id_pengajuan) != 0) {
+                                        echo anchor(site_url('kelola_barang/distribusi/' . cek_id_barang($kelola_barang_masuk->id_pengajuan)), ' <i class="fas fa-cart-arrow-down"></i>', 'class="btn btn-xs btn-success" data-toggle="tooltip" title="Distribusi"');
+                                        echo ' ';
+                                    }
                                     ?>
                                 </td>
                             </tr>

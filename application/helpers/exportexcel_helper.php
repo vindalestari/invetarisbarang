@@ -28,6 +28,21 @@ function xlsWriteLabel($Row, $Col, $Value)
   return;
 }
 
+function cek_jumlah_barang($id_pengajuan)
+{
+  $ci = &get_instance();
+  $id_barang = $ci->db->query("SELECT id_barang from pengajuan where id = '$id_pengajuan'")->row()->id_barang;
+  $jumlah = $ci->db->query("SELECT jumlah from kelola_barang where id = '$id_barang'")->row()->jumlah;
+  return $jumlah;
+}
+
+function cek_id_barang($id_pengajuan)
+{
+  $ci = &get_instance();
+  $id_barang = $ci->db->query("SELECT id_barang from pengajuan where id = '$id_pengajuan'")->row()->id_barang;
+  return $id_barang;
+}
+
 function nama_barang($id_barang)
 {
   $ci = &get_instance();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2022 at 05:01 AM
+-- Generation Time: Aug 29, 2022 at 10:20 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -138,7 +138,9 @@ INSERT INTO `kelola_barang` (`id`, `nama_barang`, `jumlah`, `merk`, `klasifikasi
 (19, 'Tas', '0', 'EGER', 'Furniture'),
 (20, 'Tas', '0', 'UNO', 'Furniture'),
 (21, 'Laptop', '0', 'Asus', 'Furniture'),
-(22, 'kunci', '0', 'UNO', 'Furniture');
+(22, 'kunci', '0', 'UNO', 'Furniture'),
+(23, 'Gelas', '0', 'OO', 'Furniture'),
+(24, 'Kursi Putar', '0', 'UNO', 'Furniture');
 
 -- --------------------------------------------------------
 
@@ -169,7 +171,9 @@ INSERT INTO `kelola_barang_keluar` (`id`, `id_user`, `id_barang`, `jml_barang_ke
 (20, 1, 20, '2', '2022-08-27', 'R.Kadis', 'Diterima'),
 (21, 1, 21, '1', '2022-08-27', 'R.Kadis', 'Diterima'),
 (22, 1, 22, '1', '2022-08-27', 'R.Sekretariat', 'Diterima'),
-(23, 1, 22, '1', '2022-08-27', 'R.Sekretariat', 'Diterima');
+(23, 1, 22, '1', '2022-08-27', 'R.Sekretariat', 'Diterima'),
+(24, 1, 23, '1', '2022-08-29', 'R.Kadis', 'Belum Diterima'),
+(25, 1, 24, '1', '2022-08-29', 'R.Bendahara', 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -201,7 +205,9 @@ INSERT INTO `kelola_barang_masuk` (`id`, `id_user`, `id_supplier`, `harga_barang
 (21, 10, 4, '13000', '2', '2022-08-27', 1, 31, 26000),
 (22, 10, 6, '222222', '2', '2022-08-27', 1, 32, 444444),
 (23, 10, 4, '20000000', '1', '2022-08-27', 1, 33, 20000000),
-(24, 10, 4, '150000', '1', '2022-08-27', 1, 34, 150000);
+(24, 10, 4, '150000', '1', '2022-08-27', 1, 34, 150000),
+(25, 10, 7, '90000', '1', '2022-08-29', 1, 35, 90000),
+(26, 10, 9, '1500000', '1', '2022-08-29', 1, 36, 1500000);
 
 -- --------------------------------------------------------
 
@@ -323,7 +329,9 @@ INSERT INTO `pengajuan` (`id`, `id_barang`, `jumlah_barang`, `tanggal_pengajuan`
 (31, 13, '2', '2022-08-27', 1, '13000', 4, 26000, 'R.Sekretariat'),
 (32, 20, '2', '2022-08-27', 1, '222222', 6, 444444, 'R.Kadis'),
 (33, 21, '1', '2022-08-27', 1, '20000000', 4, 20000000, 'R.Kadis'),
-(34, 22, '1', '2022-08-27', 1, '150000', 4, 150000, 'R.Sekretariat');
+(34, 22, '1', '2022-08-27', 1, '150000', 4, 150000, 'R.Sekretariat'),
+(35, 23, '1', '2022-08-29', 1, '90000', 7, 90000, 'R.Kadis'),
+(36, 24, '1', '2022-08-29', 1, '1500000', 9, 1500000, 'R.Bendahara');
 
 -- --------------------------------------------------------
 
@@ -478,19 +486,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `kelola_barang`
 --
 ALTER TABLE `kelola_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_keluar`
 --
 ALTER TABLE `kelola_barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `kelola_barang_masuk`
 --
 ALTER TABLE `kelola_barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `kelola_supplier`
@@ -514,7 +522,7 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `setting`
